@@ -5,6 +5,10 @@ const Item = require('./item');
 const Schema = mongoose.Schema;
 
 const offerSchema = Schema({
+    resturantId : {
+        type: Schema.ObjectId,
+        ref: 'Resturant'
+    },
     code: {
         type: String,
         required: true

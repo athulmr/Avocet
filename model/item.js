@@ -1,12 +1,23 @@
 const mongoose = require('mongoose');
-
+const uniqueValidator = require('mongoose-unique-validator');
 
 const Schema = mongoose.Schema;
 
 const itemSchema = Schema({
+    menu: {
+        type: Schema.ObjectId,
+        ref: 'Menu',
+        required: true
+    },
     name: {
         type: String,
-        required: true
+        required: true,
+        unique: true
+    },
+    code: {
+        type: String,
+        required: true,
+        unique: true
     },
     desc: {
         type: String
@@ -22,5 +33,7 @@ const itemSchema = Schema({
     imgUrl: [String],
     count: Number,
 })
+
+itemSchema.plugin(uniqueValidator);
 
 module.exports = mongoose.model('Item', itemSchema);
