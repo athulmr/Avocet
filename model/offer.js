@@ -5,10 +5,14 @@ const Item = require('./item');
 const Schema = mongoose.Schema;
 
 const offerSchema = Schema({
-    resturantId : {
+    resturantId: {
         type: Schema.ObjectId,
         ref: 'Resturant'
     },
+    items: [{
+        type: Schema.ObjectId,
+        ref: 'Item'
+    }],
     code: {
         type: String,
         required: true
@@ -20,11 +24,7 @@ const offerSchema = Schema({
     desc: String,
     imgUrl: String,
     startDate: Date,
-    endDate: Date,
-    items: [{
-        type: Schema.ObjectId,
-        ref: 'Item'
-    }]
+    endDate: Date
 });
 
 
