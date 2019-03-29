@@ -2,9 +2,10 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const dotenv = require('dotenv');
 const mongoose = require('mongoose');
+const graphqlHttp = require('express-graphql');
 
-const itemsRouter = require('./routes/items');
-const offersRouter = require('./routes/offers');
+const graphQlSchema = require('./graphql/schema/index');
+const graphQlResolvers = require('./graphql/resolvers/index');
 
 const app = express();
 
@@ -31,10 +32,14 @@ app.get('/', (req, res) =>{
     res.json({'message':'Avocet (Resturant Management System) Welcomes you :) '}).status(200);
 })
 
-app.use('/api/items', itemsRouter);
-app.use('/api/offers', offersRouter);
-
-
+app.use(
+    '/graphql',
+    graphqlHttp({
+      schema: graphQlSchema,
+      rootValue: graphQlResolvers,
+      graphiql: true
+    })
+  );
 
 app.listen(port, (err) =>{
    err ? console.log('ERROR', err) : console.log('Listning on port', port);
