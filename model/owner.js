@@ -4,26 +4,23 @@ const uniqueValidator = require('mongoose-unique-validator');
 const Schema = mongoose.Schema;
 
 const ownerSchema = Schema({
-    resturants: [{
-        resturantId: {
-            type: Schema.ObjectId,
-            ref: 'Resturant'
-        }
-    }],
+    resturants: {
+        type: [Schema.ObjectId],
+        ref: 'Resturant',
+        required: true
+    },
     name: {
         type: String,
         required: true
     },
-    contacts: {
-        address: String,
-        phone: {
-            type: String,
-            unique: true
-        },
-        email: {
-            type: String,
-            unique: true
-        }
+    address: String,
+    phone: {
+        type: String,
+        unique: true
+    },
+    email: {
+        type: String,
+        unique: true
     },
     pwd: {
         type: String,

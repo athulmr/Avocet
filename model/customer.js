@@ -12,16 +12,15 @@ const CustomerSchema = Schema({
         type: String,
         required: true
     },
-    contacts: {
-        address: String,
-        phone: {
-            type: String,
-            unique: true
-        },
-        email: {
-            type: String,
-            unique: true
-        }
+    address: String,
+    phone: {
+        type: String,
+        unique: true
+    },
+    email: {
+        type: String,
+        unique: true
+
     },
     dob: Date,
     sex: String

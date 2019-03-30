@@ -3,7 +3,7 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const staffSchema = Schema({
-    resturantId : {
+    resturantId: {
         type: Schema.ObjectId,
         ref: 'Resturant',
         require: true
@@ -12,16 +12,15 @@ const staffSchema = Schema({
         type: String,
         required: true
     },
-    contacts: {
-        address: String,
-        phone: {
-            type: String,
-            unique: true
-        },
-        email: {
-            type: String,
-            unique: true
-        }
+    address: String,
+    phone: {
+        type: String,
+        unique: true
+    },
+    email: {
+        type: String,
+        unique: true
+
     },
     pwd: {
         type: String,

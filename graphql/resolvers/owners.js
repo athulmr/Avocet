@@ -6,7 +6,7 @@ module.exports = {
     createOwner: async args => {
         try {
             console.log(args);
-            const existingOwner = await Owner.findOne({email: args.ownerInput.contacts.email});
+            const existingOwner = await Owner.findOne({email: args.ownerInput.email});
 
             if (existingOwner) {
                 throw new Error("User alredy Exist")

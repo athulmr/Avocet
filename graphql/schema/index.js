@@ -34,17 +34,13 @@ type Offer {
     endDate: String!
 }
 
-type Contacts {
-    address: String!
-    phone: String!
-    email: String!
-}
-
 type Owner {
     _id: ID!
     resturants: [Resturant!]
     name: String!
-    contacts: Contacts!
+    address: String!
+    phone: String!
+    email: String!
     dob: String
     sex: String!
 }
@@ -53,7 +49,9 @@ type Staff {
     _id: ID!
     resturants: Resturant!
     name: String!
-    contacts: Contacts!
+    address: String!
+    phone: String!
+    email: String!
     pwd: String
     dob: String!
     sex: String!
@@ -64,7 +62,9 @@ type Customer {
     _id: ID!
     resturants: Resturant!
     name: String!
-    contacts: Contacts!
+    address: String!
+    phone: String!
+    email: String!
     pwd: String
     dob: String!
     sex: String!
@@ -80,7 +80,9 @@ type Images {
 type Resturant {
     _id: ID!
     name: String!
-    contacts: Contacts!
+    address: String!
+    phone: [String!]
+    email: [String!]
     owners: Owner!
     staffs: [Staff!]
     menu: [Menu!]
@@ -109,18 +111,22 @@ type AuthData {
 
 
 
-input ContactsInput {
-    address: String
-    phone: String
-    email: String
-}
-
 input OwnerInput {
   name: String
-  contacts: ContactsInput
+  address: String
+  phone: String
+  email: String
   pwd: String
   dob: String
   sex: String
+}
+
+input ResturantInput {
+  name: String!
+  address: String!
+  phone: String!
+  email: String!
+  ownerEmail: String!
 }
 
 
@@ -128,10 +134,12 @@ input OwnerInput {
 
 type RootQuery {
   owners(owner: OwnerInput): [Owner!]!
+  resturants(resturant: ResturantInput): [Resturant!]!
 }
 
 type RootMutation {
     createOwner(ownerInput: OwnerInput): Owner
+    createResturant(resturantInput: ResturantInput): Resturant
 }
 schema {
     query: RootQuery

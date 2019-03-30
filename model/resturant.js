@@ -7,31 +7,32 @@ const Schema = mongoose.Schema;
  * Resturant can have multiple Owners and Staffs
  */
 const resturantSchema = Schema({
-    name:  {
+    name: {
         type: String,
         required: true,
         unique: true
     },
-    contacts : {
-        address: String,
-        phone: [Number],
-        email: [String]
+    address: {
+        type: String,
+        unique: true
     },
-    owners : {
+    phone: [String],
+    email: [String],
+    owners: {
         type: [Schema.ObjectId],
         ref: 'Owner',
         required: true
     },
-    staffs : {
+    staffs: {
         type: [Schema.ObjectId],
         ref: 'Staff'
     },
-    menu : [{
+    menu: [{
         type: Schema.ObjectId,
         ref: 'Menu'
     }],
-    img : {
-        logo : String,
+    img: {
+        logo: String,
         banner: String,
         background: String
     }
