@@ -1,8 +1,10 @@
 
 const ownerResolver = require('./owners');
+const resturantResolver = require('./resturants');
 
 const rootResolver = {
-  ...ownerResolver
+  ...ownerResolver,
+  ...resturantResolver,
 };
 
 module.exports = rootResolver;
