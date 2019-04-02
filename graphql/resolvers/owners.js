@@ -6,10 +6,10 @@ module.exports = {
     createOwner: async args => {
         try {
             console.log(args);
-            const existingOwner = await Owner.findOne({email: args.ownerInput.email});
+            const existingOwner = await Owner.find({email: args.ownerInput.email});
 
             if (existingOwner) {
-                throw new Error("User alredy Exist")
+                throw new Error("User alredy Exist"); 
             }
 
             args.ownerInput.pwd = await bcrypt.hash(args.ownerInput.pwd, 12);
@@ -19,7 +19,7 @@ module.exports = {
             
             return { ...result._doc, pwd: null, _id: result.id };
         } catch(err) {
-            throw err;
+            return err;
         }
     },
     owners: async args => {
@@ -35,7 +35,7 @@ module.exports = {
 
             return ownersList;
         } catch(err){
-            throw err;
+            return err;
         }
     }
 }
