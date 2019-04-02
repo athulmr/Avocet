@@ -27,10 +27,10 @@ const resturantSchema = Schema({
         type: [Schema.ObjectId],
         ref: 'Staff'
     },
-    menu: [{
+    menu: {
         type: Schema.ObjectId,
         ref: 'Menu'
-    }],
+    },
     img: {
         logo: String,
         banner: String,
