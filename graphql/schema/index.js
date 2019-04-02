@@ -8,9 +8,10 @@ const Menu = require('./types/menu');
 const Images = require('./types/images');
 const Item = require('./types/item');
 
-const typeDef = Menu+Images+Item+Owner+Resturant+Staff;
+const typeDefs = Menu.typeDef+Images+Item.typeDef+Owner+Resturant+Staff;
+const inputs = Menu.input+Item.input;
 
-module.exports = buildSchema(typeDef+`
+module.exports = buildSchema(typeDefs+inputs+`
 
 input OwnerInput {
   name: String
@@ -34,11 +35,13 @@ input ResturantInput {
 type RootQuery {
   owners(owner: OwnerInput): [Owner!]!
   resturants(resturant: ResturantInput): [Resturant!]!
+  menu(menu: MenuInput): [Menu!]!
 }
 
 type RootMutation {
     createOwner(ownerInput: OwnerInput): Owner
     createResturant(resturantInput: ResturantInput): Resturant
+    createMenu(menuInput: MenuInput): Menu
 }
 schema {
     query: RootQuery
