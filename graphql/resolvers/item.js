@@ -10,13 +10,11 @@ module.exports = {
             if(!menu){
                 throw new Error("Menu do not exist");
             }
-            const result = await Item.insertMany(items);
-            menu.items = result;
+            const results = await Item.insertMany(items);
+            menu.items = results;
+            console.log(results);
             await menu.save();
-            return {
-                ...result._doc,
-                _id: result.id
-            };;
+            return [...results];
         } catch (err) {
 
         }
