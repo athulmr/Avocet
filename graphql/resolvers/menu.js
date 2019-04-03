@@ -19,7 +19,6 @@ module.exports = {
             const updateResturnat = await resturant.save();
             return {
                 ...result._doc,
-                pwd: null,
                 _id: result.id
             };
 
