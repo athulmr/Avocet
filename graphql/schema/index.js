@@ -1,5 +1,5 @@
 const {
-    buildSchema
+  buildSchema
 } = require('graphql');
 const Owner = require('./types/owner');
 const Resturant = require('./types/resturant');
@@ -8,29 +8,10 @@ const Menu = require('./types/menu');
 const Images = require('./types/images');
 const Item = require('./types/item');
 
-const typeDefs = Menu.typeDef+Images+Item.typeDef+Owner+Resturant+Staff;
-const inputs = Menu.input+Item.input;
+const typeDefs = Menu.typeDef + Images + Item.typeDef + Owner.typeDef + Resturant.typeDef + Staff;
+const inputs = Menu.input + Item.input + Resturant.input + Owner.input;
 
-module.exports = buildSchema(typeDefs+inputs+`
-
-input OwnerInput {
-  name: String
-  address: String
-  phone: String
-  email: String
-  pwd: String
-  dob: String
-  sex: String
-}
-
-input ResturantInput {
-  name: String!
-  address: String!
-  phone: String!
-  email: String!
-  ownerEmail: String!
-}
-
+module.exports = buildSchema(typeDefs + inputs + `
 
 type RootQuery {
   owners(owner: OwnerInput): [Owner!]!

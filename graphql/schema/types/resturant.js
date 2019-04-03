@@ -12,4 +12,17 @@ type Resturant {
 }
 `;
 
-module.exports = typeDef;
+const input = `
+input ResturantInput {
+    name: String!
+    address: String!
+    phone: String!
+    email: String!
+    ownerEmail: String!
+}
+`;
+
+module.exports = {
+    typeDef: typeDef,
+    input: input
+};

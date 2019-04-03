@@ -11,4 +11,19 @@ type Owner {
 }
 `;
 
-module.exports = typeDef;
+const input = `
+input OwnerInput {
+    name: String
+    address: String
+    phone: String
+    email: String
+    pwd: String
+    dob: String
+    sex: String
+}
+`;
+
+module.exports = {
+    typeDef: typeDef,
+    input: input
+};
