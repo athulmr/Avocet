@@ -13,8 +13,8 @@ type Item {
 `;
 
 const input = `
-type ItemInput {
-    menu: Menu!
+input ItemInput {
+    menu: ID!
     name: String!
     code: String
     desc: String!

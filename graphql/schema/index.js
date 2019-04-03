@@ -39,9 +39,10 @@ type RootQuery {
 }
 
 type RootMutation {
-    createOwner(ownerInput: OwnerInput): Owner
-    createResturant(resturantInput: ResturantInput): Resturant
-    createMenu(menuInput: MenuInput): Menu
+    createOwner(ownerInput: OwnerInput): Owner!
+    createResturant(resturantInput: ResturantInput): Resturant!
+    createMenu(menuInput: MenuInput): Menu!
+    createItems(itemInputs: [ItemInput]): [Item!]
 }
 schema {
     query: RootQuery

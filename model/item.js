@@ -12,12 +12,9 @@ const itemSchema = Schema({
     name: {
         type: String,
         required: true,
-        unique: true
     },
     code: {
-        type: String,
-        required: true,
-        unique: true
+        type: String
     },
     desc: {
         type: String
