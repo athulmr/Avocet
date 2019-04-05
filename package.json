@@ -7,7 +7,6 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "serve": "nodemon index.js",
     "inspect": "nodemon --inspect index.js"
-
   },
   "keywords": [
     "Restaurant Management System",
