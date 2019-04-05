@@ -1,7 +1,7 @@
 {
   "name": "avocet-server",
   "version": "1.0.0",
-  "description": "API Server for Avocet (Resturant Management System)",
+  "description": "API Server for Avocet (Restaurant Management System)",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
@@ -10,7 +10,7 @@
 
   },
   "keywords": [
-    "Resturant Management System",
+    "Restaurant Management System",
     "Avocet"
   ],
   "author": "athulmr@live.in",

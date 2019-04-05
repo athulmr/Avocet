@@ -1,7 +1,7 @@
 const typeDef = `
 type Customer {
     _id: ID!
-    resturants: Resturant!
+    restaurants: Restaurant!
     name: String!
     address: String!
     phone: String!

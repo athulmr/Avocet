@@ -1,16 +1,32 @@
 const typeDef = `
 type Staff {
     _id: ID!
-    resturants: Resturant!
+    restaurant: Restaurant!
     name: String!
-    address: String!
+    address: String
     phone: String!
     email: String!
     pwd: String
-    dob: String!
-    sex: String!
+    dob: String
+    sex: String
     approved: Boolean!
 }
 `;
 
-module.exports = typeDef;
+const input = `
+input StaffInput {
+    restaurant: ID!
+    name: String!
+    address: String
+    phone: String!
+    email: String!
+    pwd: String
+    dob: String
+    sex: String
+}
+`
+
+module.exports = {
+    typeDef: typeDef,
+    input: input
+}

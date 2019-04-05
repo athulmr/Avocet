@@ -1,4 +1,4 @@
-const Resturant = require('../../model/resturant');
+const Restaurant = require('../../model/restaurant');
 const Menu = require('../../model/menu')
 
 module.exports = {
@@ -6,17 +6,17 @@ module.exports = {
         try {
             const menuInput = args.menuInput;
             console.log(args);
-            const resturant = await Resturant.findById(args.menuInput.resturantId, (err, data) => {
+            const restaurant = await Restaurant.findById(args.menuInput.restaurantId, (err, data) => {
                 return data;
             });
-            if (resturant.menu) {
-                throw new Error("Already have a Menu tagged with this resturant");
+            if (restaurant.menu) {
+                throw new Error("Already have a Menu tagged with this restaurant");
             }
-            menuInput.resturantId = resturant;
+            menuInput.restaurantId = restaurant;
             const menu = new Menu(menuInput);
             const result = await menu.save();
-            resturant.menu = result;
-            const updateResturnat = await resturant.save();
+            restaurant.menu = result;
+            const updateResturnat = await restaurant.save();
             return {
                 ...result._doc,
                 _id: result.id

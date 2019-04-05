@@ -3,9 +3,9 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const staffSchema = Schema({
-    resturantId: {
+    restaurantId: {
         type: Schema.ObjectId,
-        ref: 'Resturant',
+        ref: 'Restaurant',
         require: true
     },
     name: {

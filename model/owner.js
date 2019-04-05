@@ -4,9 +4,9 @@ const uniqueValidator = require('mongoose-unique-validator');
 const Schema = mongoose.Schema;
 
 const ownerSchema = Schema({
-    resturants: {
+    restaurants: {
         type: [Schema.ObjectId],
-        ref: 'Resturant',
+        ref: 'Restaurant',
         required: true
     },
     name: {

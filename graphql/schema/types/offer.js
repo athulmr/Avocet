@@ -1,7 +1,7 @@
 const  typeDef = `
 type Offer {
     _id: ID!
-    resturantId: Resturant!
+    restaurantId: Restaurant!
     items: [Item!]
     code: String!
     name: String!

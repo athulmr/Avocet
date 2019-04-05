@@ -29,7 +29,7 @@ app.use(bodyParser.json());
 app.use(logger);
 
 app.get('/', (req, res) =>{
-    res.json({'message':'Avocet (Resturant Management System) Welcomes you :) '}).status(200);
+    res.json({'message':'Avocet (Restaurant Management System) Welcomes you :) '}).status(200);
 })
 
 app.use(

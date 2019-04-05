@@ -5,7 +5,7 @@ const Schema = mongoose.Schema;
 const menuSchema = Schema({
     resturnatId: {
         type: Schema.ObjectId,
-        ref: 'Resturant',
+        ref: 'Restaurant',
         require: true,
     },
     items: [{

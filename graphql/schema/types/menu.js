@@ -1,7 +1,7 @@
 const typeDef = `
 type Menu {
     _id: ID!
-    resturantId: Resturant!
+    restaurantId: Restaurant!
     name: String!
     categories: [String!]!
     item: [Item!]
@@ -10,7 +10,7 @@ type Menu {
 
 const input = `
 input MenuInput {
-    resturantId: ID!
+    restaurantId: ID!
     name: String!
     categories: [String!]!
     item: [ID!]

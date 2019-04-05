@@ -5,9 +5,9 @@ const Item = require('./item');
 const Schema = mongoose.Schema;
 
 const offerSchema = Schema({
-    resturantId: {
+    restaurantId: {
         type: Schema.ObjectId,
-        ref: 'Resturant'
+        ref: 'Restaurant'
     },
     items: [{
         type: Schema.ObjectId,

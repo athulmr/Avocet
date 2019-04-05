@@ -2,11 +2,11 @@ const mongoose = require('mongoose');
 
 const Schema = mongoose.Schema;
 /**
- * Resturant act as a parent to all other models.
- * _id is used in all other models to tag it with their resturant.
- * Resturant can have multiple Owners and Staffs
+ * Restaurant act as a parent to all other models.
+ * _id is used in all other models to tag it with their restaurant.
+ * Restaurant can have multiple Owners and Staffs
  */
-const resturantSchema = Schema({
+const restaurantSchema = Schema({
     name: {
         type: String,
         required: true,
@@ -42,4 +42,4 @@ const resturantSchema = Schema({
     }
 });
 
-module.exports = mongoose.model('Resturant', resturantSchema);
+module.exports = mongoose.model('Restaurant', restaurantSchema);

@@ -1,5 +1,5 @@
 const typeDef = `
-type Resturant {
+type Restaurant {
     _id: ID!
     name: String!
     address: String!
@@ -13,7 +13,7 @@ type Resturant {
 `;
 
 const input = `
-input ResturantInput {
+input RestaurantInput {
     name: String!
     address: String!
     phone: String!

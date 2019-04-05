@@ -1,12 +1,12 @@
 
 const ownerResolver = require('./owners');
-const resturantResolver = require('./resturants');
+const restaurantResolver = require('./restaurants');
 const menuResolver = require('./menu');
 const itemResolver = require('./item');
 
 const rootResolver = {
   ...ownerResolver,
-  ...resturantResolver,
+  ...restaurantResolver,
   ...menuResolver,
   ...itemResolver  
 };

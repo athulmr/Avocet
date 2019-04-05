@@ -1,6 +1,6 @@
 const typeDef = `
 type Table {
-    resturantId: Resturant!
+    restaurantId: Restaurant!
     code: String!
     capacity: Int!
     occupied: Boolean!
