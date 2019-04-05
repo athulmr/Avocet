@@ -18,7 +18,7 @@ input RestaurantInput {
     address: String!
     phone: String!
     email: String!
-    ownerEmail: String!
+    owner: ID!
 }
 `;
 
