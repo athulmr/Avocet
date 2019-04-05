@@ -4,19 +4,20 @@ const Owner = require('../../model/owner');
 module.exports = {
     createRestaurant: async args => {
         try {
-            const owner = await Owner.findOne({email: args.restaurantInput.ownerEmail});
+            const restaurantInput = args.restaurantInput;
+
+            const owner = await Owner.findById(restaurantInput.owner);
 
             if (!owner) {
                 throw new Error("Owner Email Doesnt Exist");
             }
 
-            const existingRestaurant = await Restaurant.findOne({email: args.restaurantInput.email});
 
 // have to add phone number for finding restaurant(some restaurants maynot have email)
-            
-            args.restaurantInput["owners"] = [];
-            args.restaurantInput.owners.push(owner);
-            const restaurant = new Restaurant(args.restaurantInput);
+            restaurantInput["owners"] = [];
+            restaurantInput.owners.push(owner);
+            restaurantInput["addedOn"] = new Date();
+            const restaurant = new Restaurant(restaurantInput);
 
             const result = await restaurant.save();
             owner.restaurants.push(result);

@@ -6,14 +6,12 @@ module.exports = {
     createOwner: async args => {
         try {
             console.log(args);
-            const existingOwner = await Owner.find({email: args.ownerInput.email});
+            const ownerInput = args.ownerInput;
 
-            if (existingOwner) {
-                throw new Error("User alredy Exist"); 
-            }
+            ownerInput.pwd = await bcrypt.hash(ownerInput.pwd, 12);
+            ownerInput["addedOn"] = new Date();
 
-            args.ownerInput.pwd = await bcrypt.hash(args.ownerInput.pwd, 12);
-            const owner = new Owner(args.ownerInput);
+            const owner = new Owner(ownerInput);
 
             const result = await owner.save();
             

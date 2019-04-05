@@ -6,12 +6,13 @@ module.exports = {
         try {
             const menuInput = args.menuInput;
             console.log(args);
-            const restaurant = await Restaurant.findById(args.menuInput.restaurantId, (err, data) => {
+            const restaurant = await Restaurant.findById(menuInput.restaurant, (err, data) => {
                 return data;
             });
             if (restaurant.menu) {
                 throw new Error("Already have a Menu tagged with this restaurant");
             }
+            menuInput["addedOn"] = new Date();
             menuInput.restaurantId = restaurant;
             const menu = new Menu(menuInput);
             const result = await menu.save();
