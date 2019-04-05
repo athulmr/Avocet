@@ -35,6 +35,10 @@ const resturantSchema = Schema({
         logo: String,
         banner: String,
         background: String
+    },
+    addedOn: {
+        type: Date,
+        required: true
     }
 });
 

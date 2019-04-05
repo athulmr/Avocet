@@ -27,7 +27,11 @@ const ownerSchema = Schema({
         required: true
     },
     dob: Date,
-    sex: String
+    sex: String,
+    addedOn: {
+        type: Date,
+        required: true
+    }
 });
 
 mongoose.plugin(uniqueValidator);

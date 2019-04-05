@@ -29,6 +29,10 @@ const itemSchema = Schema({
     },
     imgUrl: [String],
     count: Number,
+    addedOn: {
+        type: Date,
+        required: true
+    }
 })
 
 itemSchema.plugin(uniqueValidator);

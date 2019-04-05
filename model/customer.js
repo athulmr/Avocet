@@ -23,7 +23,11 @@ const CustomerSchema = Schema({
 
     },
     dob: Date,
-    sex: String
+    sex: String,
+    addedOn: {
+        type: Date,
+        required: true
+    }
 });
 
 module.exports = mongoose.model('Owner', ownerSchema);

@@ -28,7 +28,11 @@ const tableSchema = Schema({
             type: Schema.ObjectId,
             ref: 'Customer'
         }
-    }]
+    }],
+    addedOn: {
+        type: Date,
+        required: true
+    }
 });
 
 tableSchema.plugin(uniqueValidator);

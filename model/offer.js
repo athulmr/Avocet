@@ -24,7 +24,11 @@ const offerSchema = Schema({
     desc: String,
     imgUrl: String,
     startDate: Date,
-    endDate: Date
+    endDate: Date,
+    addedOn: {
+        type: Date,
+        required: true
+    }
 });
 
 

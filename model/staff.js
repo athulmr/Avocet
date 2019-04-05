@@ -28,7 +28,11 @@ const staffSchema = Schema({
     },
     dob: Date,
     sex: String,
-    approved: Boolean
+    approved: Boolean,
+    addedOn: {
+        type: Date,
+        required: true
+    }
 });
 
 module.exports = mongoose.model('Staff', staffSchema);

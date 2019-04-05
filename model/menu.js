@@ -15,6 +15,10 @@ const menuSchema = Schema({
     name: {
         type: String,
         required: true
+    },
+    addedOn: {
+        type: Date,
+        required: true
     }
 });
 
