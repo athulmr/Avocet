@@ -9,6 +9,7 @@ type Item {
     price: Float!
     imgUrl: [String!]
     count: Int
+    addedOn: String
 }
 `;
 
