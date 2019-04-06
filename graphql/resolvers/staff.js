@@ -6,7 +6,7 @@ const Restaurant  = require('../../model/restaurant');
 module.exports = {
     /**
      * Creates an account for the Staff.
-     * Tag the Staff with Resturant and add Staff to Resturant's Staffs List 
+     * Tag the Staff with Restaurant and add Staff to Restaurant's Staffs List 
      * @param {StaffInput} args Contains details about staff and Restaurant ID
      */
     createStaff: async args => {
@@ -15,7 +15,7 @@ module.exports = {
             const staffInput = args.staffInput;
             const restaurant = await Restaurant.findById(staffInput.restaurant);
             if(!restaurant){
-                throw new Error("Resturant not found");
+                throw new Error("Restaurant not found");
             }
 
             staffInput.restaurant = restaurant;

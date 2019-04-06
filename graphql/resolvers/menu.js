@@ -2,22 +2,30 @@ const Restaurant = require('../../model/restaurant');
 const Menu = require('../../model/menu')
 
 module.exports = {
+    /**
+     * Creates a Menu which will hold a list of Items for a Restaurant.
+     * @param {MenuInput} args contains Details for creating menu and Resturant ID.
+     */
     createMenu: async args => {
         try {
             const menuInput = args.menuInput;
-            console.log(args);
-            const restaurant = await Restaurant.findById(menuInput.restaurant, (err, data) => {
-                return data;
-            });
+            const restaurant = await Restaurant.findById(menuInput.restaurant);
+
+            if(!restaurant){
+                throw new Error("Restaurant do not exist!");
+            }
             if (restaurant.menu) {
                 throw new Error("Already have a Menu tagged with this restaurant");
             }
+
             menuInput["addedOn"] = new Date();
-            menuInput.restaurantId = restaurant;
+            menuInput.restaurant = restaurant;
+
             const menu = new Menu(menuInput);
             const result = await menu.save();
             restaurant.menu = result;
-            const updateResturnat = await restaurant.save();
+
+            await restaurant.save();
             return {
                 ...result._doc,
                 _id: result.id

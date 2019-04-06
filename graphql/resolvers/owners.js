@@ -3,13 +3,17 @@ const bcrypt = require('bcrypt');
 const Owner = require('../../model/owner');
 
 module.exports = {
+    /**
+     * Creates an account for the Restaurant Owner/Manager.
+     * @param {OwnerInput} args contains details for creating account.
+     */
     createOwner: async args => {
         try {
             console.log(args);
             const ownerInput = args.ownerInput;
 
-            ownerInput.pwd = await bcrypt.hash(ownerInput.pwd, 12);
             ownerInput["addedOn"] = new Date();
+            ownerInput.pwd = await bcrypt.hash(ownerInput.pwd, 12);
 
             const owner = new Owner(ownerInput);
 
@@ -20,6 +24,10 @@ module.exports = {
             return err;
         }
     },
+    /**
+     * Returns the Restaurant Owner/Manger based on the search criteria.
+     * @param {Owner} args contains search criteria.
+     */
     owners: async args => {
         try{
             console.log(args.owner);

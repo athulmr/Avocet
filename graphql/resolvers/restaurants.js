@@ -2,6 +2,11 @@ const Restaurant = require('../../model/restaurant');
 const Owner = require('../../model/owner');
 
 module.exports = {
+    /**
+     * Creates a new Restaurant for Owner/Manager.
+     * Tag the Restaurant with Owner and adds the Restaurant to Owners Restaurants List.
+     * @param {RestaurantInput} args contains all the necessary details for creating the Restaurant. 
+     */
     createRestaurant: async args => {
         try {
             const restaurantInput = args.restaurantInput;
@@ -9,11 +14,10 @@ module.exports = {
             const owner = await Owner.findById(restaurantInput.owner);
 
             if (!owner) {
-                throw new Error("Owner Email Doesnt Exist");
+                throw new Error("Owner do not Exist");
             }
 
-
-// have to add phone number for finding restaurant(some restaurants maynot have email)
+            // have to add phone number for finding restaurant(some restaurants may not have email)
             restaurantInput["owners"] = [];
             restaurantInput.owners.push(owner);
             restaurantInput["addedOn"] = new Date();
