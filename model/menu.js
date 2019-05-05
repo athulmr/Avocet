@@ -3,7 +3,7 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const menuSchema = Schema({
-    resturnat: {
+    restaurant: {
         type: Schema.ObjectId,
         ref: 'Restaurant',
         require: true,
