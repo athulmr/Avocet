@@ -17,8 +17,8 @@ const input = `
 input ItemInput {
     menu: ID!
     name: String!
-    code: String
-    desc: String!
+    code: String!
+    desc: String
     category: [String!]!
     price: Float!
     imgUrl: [String!]
@@ -28,7 +28,7 @@ input ItemInput {
 
 const query = `
 input ItemQuery {
-    menu: ID
+    menu: ID!
     name: String
     code: String
     desc: String

@@ -32,5 +32,26 @@ module.exports = {
         } catch (err) {
             throw new Error(err);
         }
+    },
+
+    /**
+     * Retrieve Items from the database.
+     * @param {Item} args
+     */
+    items: async args => {
+        try{
+            console.log(args.item);
+            const query = JSON.parse(JSON.stringify(args.item));
+            console.log(query);
+            const itemList = await Item.find(query);
+
+            if(!itemList) {
+                throw new Error("No Item found");
+            }
+
+            return itemList;
+        } catch(err){
+            return err;
+        }
     }
 }
