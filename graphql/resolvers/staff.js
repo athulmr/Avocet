@@ -1,4 +1,4 @@
-const bcrypt = require('bcrypt');
+const bcrypt = require('bcryptjs');
 
 const Staff = require('../../model/staff');
 const Restaurant  = require('../../model/restaurant');

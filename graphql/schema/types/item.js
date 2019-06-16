@@ -26,7 +26,21 @@ input ItemInput {
 }
 `;
 
+const query = `
+input ItemQuery {
+    menu: ID
+    name: String
+    code: String
+    desc: String
+    category: [String!]
+    price: Float
+    imgUrl: [String!]
+    count: Int
+}
+`;
+
 module.exports = {
     typeDef: typeDef,
-    input: input
+    input: input,
+    query: query
 };

@@ -4,7 +4,7 @@ const Menu = require('../../model/menu')
 module.exports = {
     /**
      * Creates a Menu which will hold a list of Items for a Restaurant.
-     * @param {MenuInput} args contains Details for creating menu and Resturant ID.
+     * @param {MenuInput} args contains Details for creating menu and Restaurant ID.
      */
     createMenu: async args => {
         try {

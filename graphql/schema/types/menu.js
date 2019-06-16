@@ -17,7 +17,16 @@ input MenuInput {
 }
 `;
 
+const query = `
+input MenuQuery {
+    restaurant: ID
+    _id: ID
+    name: String
+}
+`;
+
 module.exports = {
     typeDef: typeDef,
-    input: input
+    input: input,
+    query: query
 }
