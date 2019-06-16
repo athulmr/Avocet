@@ -1,6 +1,6 @@
 const bcrypt = require('bcryptjs');
 
-const Owner = require('../../model/owner');
+const Owner = require('./Owner');
 
 module.exports = {
     /**

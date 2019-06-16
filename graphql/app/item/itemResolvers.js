@@ -1,5 +1,5 @@
-const Menu = require('../../model/menu');
-const Item = require('../../model/item');
+const Menu = require('../menu/Menu');
+const Item = require('./Item');
 
 module.exports = {
     /**

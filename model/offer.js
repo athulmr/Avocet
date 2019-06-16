@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-const Item = require('./item');
+const Item = require('../graphql/item/Item');
 
 const Schema = mongoose.Schema;
 

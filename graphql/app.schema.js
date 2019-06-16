@@ -1,12 +1,12 @@
 const {
   buildSchema
 } = require('graphql');
-const Owner = require('./types/ownerType');
-const Restaurant = require('./types/restaurantType');
-const Staff = require('./types/staffType');
-const Menu = require('./types/menuType');
-const Images = require('./types/imagesType');
-const Item = require('./types/itemType');
+const Owner = require('./app/owner/ownerType');
+const Restaurant = require('./app/restaurant/restaurantType');
+const Staff = require('./app/staff/staffType');
+const Menu = require('./app/menu/menuType');
+const Images = require('./app/images/imagesType');
+const Item = require('./app/item/itemType');
 
 const typeDefs = Menu.typeDef + Images + Item.typeDef + Owner.typeDef + Restaurant.typeDef + Staff.typeDef;
 const inputs = Menu.input + Item.input + Restaurant.input + Owner.input + Staff.input;

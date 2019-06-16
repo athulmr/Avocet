@@ -1,7 +1,7 @@
 const bcrypt = require('bcryptjs');
 
-const Staff = require('../../model/staff');
-const Restaurant  = require('../../model/restaurant');
+const Staff = require('./Staff');
+const Restaurant  = require('../restaurant/Restaurant');
 
 module.exports = {
     /**
