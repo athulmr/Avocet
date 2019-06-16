@@ -13,8 +13,11 @@ dotenv.config();
 
 const port = process.env.PORT;
 
-mongoose.connect(process.env.MONGODB_URI, {useNewUrlParser: true}, (err,data) => {
-    err ? console.log('ERROR', err) : console.log ('Connected to Database')
+mongoose.connect(process.env.MONGODB_URI, {
+    useCreateIndex: true,
+    useNewUrlParser: true
+  }, (err,data) => {
+    err ? console.log('ERROR', err) : console.log ('💾  Connected to Database')
 });
 
 const logger = (req, res, next) => {
@@ -42,7 +45,7 @@ app.use(
   );
 
 app.listen(port, (err) =>{
-   err ? console.log('ERROR', err) : console.log('Listning on port', port);
+   err ? console.log('ERROR', err) : console.log('🚀  Server ready at port', port);
 });
 
 module.exports = app;
