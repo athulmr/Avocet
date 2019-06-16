@@ -1,9 +1,9 @@
 
-const ownerResolver = require('./app/owner/ownerResolvers');
-const restaurantResolver = require('./app/restaurant/restaurantResolvers');
-const menuResolver = require('./app/menu/menuResolvers');
-const itemResolver = require('./app/item/itemResolvers');
-const staffResolver = require('./app/staff/staffResolvers')
+const ownerResolver = require('./app/owner/owner.resolver');
+const restaurantResolver = require('./app/restaurant/restaurant.resolver');
+const menuResolver = require('./app/menu/menu.resolver');
+const itemResolver = require('./app/item/item.resolver');
+const staffResolver = require('./app/staff/staff.resolver')
 
 const rootResolver = {
   ...ownerResolver,
