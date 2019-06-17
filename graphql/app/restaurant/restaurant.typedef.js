@@ -23,7 +23,9 @@ input RestaurantInput {
 `;
 
 const query = `
+extend type RootQuery {
 restaurants(restaurant: RestaurantInput): [Restaurant!]!
+}
 `
 
 const mutation =`

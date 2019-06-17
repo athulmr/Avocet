@@ -25,7 +25,9 @@ input MenuQuery {
 `;
 
 const query =`
+extend type RootQuery {
 menu(menu: MenuQuery): [Menu!]!
+}
 `;
 
 const mutation = `

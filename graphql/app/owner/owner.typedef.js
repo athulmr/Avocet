@@ -24,7 +24,9 @@ input OwnerInput {
 `;
 
 const query = `
+extend type RootQuery {
 owners(owner: OwnerInput): [Owner!]!
+}
 `;
 
 const mutation = `

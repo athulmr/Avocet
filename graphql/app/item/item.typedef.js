@@ -41,7 +41,9 @@ input ItemQuery {
 `;
 
 const query = `
-items(item: ItemQuery): [Item!]!
+extend type RootQuery {
+    items(item: ItemQuery): [Item!]!
+}
 `;
 
 const mutation = `
