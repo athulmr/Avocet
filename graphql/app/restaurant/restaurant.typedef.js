@@ -10,9 +10,7 @@ type Restaurant {
     menu: [Menu!]
     img: Images
 }
-`;
 
-const input = `
 input RestaurantInput {
     name: String!
     address: String!
@@ -34,7 +32,6 @@ createRestaurant(restaurantInput: RestaurantInput): Restaurant!
 
 module.exports = {
     typeDef: typeDef,
-    input: input,
     query: query,
     mutation: mutation
 };

@@ -6,9 +6,7 @@ type Menu {
     categories: [String!]!
     items: [Item!]
 }
-`;
 
-const input = `
 input MenuInput {
     restaurant: ID!
     name: String!
@@ -34,7 +32,6 @@ createMenu(menuInput: MenuInput): Menu!
 
 module.exports = {
     typeDef: typeDef,
-    input: input,
     query: query,
     mutation: mutation
 }

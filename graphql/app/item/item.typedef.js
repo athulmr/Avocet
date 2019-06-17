@@ -12,9 +12,7 @@ type Item {
     addedOn: String
     # Have to add item active indicator
 }
-`;
 
-const input = `
 input ItemInput {
     menu: ID!
     name: String!
@@ -50,7 +48,6 @@ createItems(itemInputs: [ItemInput]): [Item!]
 
 module.exports = {
     typeDef: typeDef,
-    input: input,
     query: query,
     mutation: mutation
 };

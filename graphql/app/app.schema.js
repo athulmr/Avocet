@@ -9,12 +9,11 @@ const Images = require('./images/images.typedef');
 const Item = require('./item/item.typedef');
 
 const typeDefs = Menu.typeDef + Images + Item.typeDef + Owner.typeDef + Restaurant.typeDef + Staff.typeDef;
-const inputs = Menu.input + Item.input + Restaurant.input + Owner.input + Staff.input;
 const rootQuery = Menu.query + Restaurant.query + Owner.query + Item.query;
 const rootMutation = Restaurant.mutation + Menu.mutation + Staff.mutation + Owner.mutation + Item.mutation;
 
 
-let schema = buildSchema(typeDefs + inputs + `
+let schema = buildSchema(typeDefs + `
 
 type RootQuery {
   _empty: String  

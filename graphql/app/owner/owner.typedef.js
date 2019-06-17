@@ -9,9 +9,7 @@ type Owner {
     dob: String
     sex: String!
 }
-`;
 
-const input = `
 input OwnerInput {
     name: String
     address: String
@@ -35,7 +33,6 @@ createOwner(ownerInput: OwnerInput): Owner!
 
 module.exports = {
     typeDef: typeDef,
-    input: input,
     query: query,
     mutation: mutation
 };

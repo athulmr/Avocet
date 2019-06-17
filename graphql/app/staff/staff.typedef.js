@@ -11,9 +11,7 @@ type Staff {
     sex: String
     approved: Boolean!
 }
-`;
 
-const input = `
 input StaffInput {
     restaurant: ID!
     name: String!
@@ -32,6 +30,5 @@ createStaff(staffInput: StaffInput): Staff!
 
 module.exports = {
     typeDef: typeDef,
-    input: input,
     mutation: mutation
 }
