@@ -42,5 +42,5 @@ input ItemQuery {
 module.exports = {
     typeDef: typeDef,
     input: input,
-    query: query
+    queryInput: query
 };

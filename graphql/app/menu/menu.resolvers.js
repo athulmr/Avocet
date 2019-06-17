@@ -35,5 +35,22 @@ module.exports = {
             return err;
         }
 
+    },
+    menu: async args => {
+        try{
+            console.log(args.menu);
+            const query = JSON.parse(JSON.stringify(args.menu));
+            console.log(query);
+            const menuList = await Menu.find(query);
+            console.log(menuList);
+
+            if(!menuList) {
+                throw new Error("No Menu found");
+            }
+
+            return menuList;
+        } catch(err){
+            return err;
+        }
     }
 }

@@ -4,7 +4,7 @@ type Menu {
     restaurant: Restaurant!
     name: String!
     categories: [String!]!
-    item: [Item!]
+    items: [Item!]
 }
 `;
 
@@ -13,7 +13,6 @@ input MenuInput {
     restaurant: ID!
     name: String!
     categories: [String!]!
-    item: [ID!]
 }
 `;
 
@@ -28,5 +27,5 @@ input MenuQuery {
 module.exports = {
     typeDef: typeDef,
     input: input,
-    query: query
+    queryInput: query
 }
