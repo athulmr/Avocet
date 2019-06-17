@@ -40,8 +40,13 @@ input ItemQuery {
 }
 `;
 
+const query = `
+items(item: ItemQuery): [Item!]!
+`;
+
 module.exports = {
     typeDef: typeDef,
     input: input,
-    queryInput: queryInput
+    queryInput: queryInput,
+    query: query
 };

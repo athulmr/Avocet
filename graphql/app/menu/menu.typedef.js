@@ -24,8 +24,13 @@ input MenuQuery {
 }
 `;
 
+const query =`
+menu(menu: MenuQuery): [Menu!]!
+`;
+
 module.exports = {
     typeDef: typeDef,
     input: input,
-    queryInput: queryInput
+    queryInput: queryInput,
+    query: query
 }

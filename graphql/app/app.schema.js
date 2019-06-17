@@ -11,14 +11,13 @@ const Item = require('./item/item.typedef');
 const typeDefs = Menu.typeDef + Images + Item.typeDef + Owner.typeDef + Restaurant.typeDef + Staff.typeDef;
 const inputs = Menu.input + Item.input + Restaurant.input + Owner.input + Staff.input;
 const queryInputs = Menu.queryInput + Item.queryInput;
+const rootQuery = Restaurant.query + Owner.query + Item.query;
 
 module.exports = buildSchema(typeDefs + inputs + queryInputs + `
 
-type RootQuery {
-  owners(owner: OwnerInput): [Owner!]!
-  restaurants(restaurant: RestaurantInput): [Restaurant!]!
-  menu(menu: MenuQuery): [Menu!]!
-  items(item: ItemQuery): [Item!]!
+type RootQuery {`
+  +rootQuery+
+  `
 }
 
 type RootMutation {

@@ -23,7 +23,12 @@ input OwnerInput {
 }
 `;
 
+const query = `
+owners(owner: OwnerInput): [Owner!]!
+`;
+
 module.exports = {
     typeDef: typeDef,
-    input: input
+    input: input,
+    query: query
 };

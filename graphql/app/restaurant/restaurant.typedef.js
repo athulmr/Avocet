@@ -22,7 +22,11 @@ input RestaurantInput {
 }
 `;
 
+const query = `
+restaurants(restaurant: RestaurantInput): [Restaurant!]!
+`
 module.exports = {
     typeDef: typeDef,
-    input: input
+    input: input,
+    query: query
 };
