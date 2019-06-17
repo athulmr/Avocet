@@ -12,6 +12,12 @@ const restaurantSchema = Schema({
         required: true,
         unique: true
     },
+    code: {
+        type: String,
+        required: true,
+        unique: true,
+        maxlength: 4
+    },
     address: {
         type: String,
         unique: true

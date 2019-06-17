@@ -2,6 +2,7 @@ const typeDef = `
 type Restaurant {
     _id: ID!
     name: String!
+    code: String!
     address: String!
     phone: [String!]
     email: [String!]
@@ -13,6 +14,7 @@ type Restaurant {
 
 input RestaurantInput {
     name: String!
+    code: String!
     address: String!
     phone: String!
     email: String!
