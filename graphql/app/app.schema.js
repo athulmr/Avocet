@@ -19,9 +19,8 @@ type RootQuery {
   _empty: String  
 }
 
-type RootMutation {`
-+rootMutation+
-`
+type RootMutation {
+  _empty: String
 }
 
 schema {
@@ -31,6 +30,6 @@ schema {
 
 `);
 
-schema = extendSchema(schema, parse(rootQuery));
+schema = extendSchema(schema, parse(rootQuery + rootMutation));
 
 module.exports = schema

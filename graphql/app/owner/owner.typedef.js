@@ -28,7 +28,9 @@ owners(owner: OwnerInput): [Owner!]!
 `;
 
 const mutation = `
+extend type RootMutation {
 createOwner(ownerInput: OwnerInput): Owner!
+}
 `
 
 module.exports = {

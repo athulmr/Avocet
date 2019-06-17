@@ -25,7 +25,9 @@ input StaffInput {
 `;
 
 const mutation = `
+extend type RootMutation {
 createStaff(staffInput: StaffInput): Staff!
+}
 `;
 
 module.exports = {

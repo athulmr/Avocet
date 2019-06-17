@@ -27,7 +27,9 @@ menu(menu: MenuQuery): [Menu!]!
 `;
 
 const mutation = `
+extend type RootMutation {
 createMenu(menuInput: MenuInput): Menu!
+}
 `;
 
 module.exports = {

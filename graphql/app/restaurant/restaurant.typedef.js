@@ -27,7 +27,9 @@ restaurants(restaurant: RestaurantInput): [Restaurant!]!
 `
 
 const mutation =`
+extend type RootMutation {
 createRestaurant(restaurantInput: RestaurantInput): Restaurant!
+}
 `;
 
 module.exports = {

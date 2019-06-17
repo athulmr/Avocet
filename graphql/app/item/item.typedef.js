@@ -43,7 +43,9 @@ extend type RootQuery {
 `;
 
 const mutation = `
+extend type RootMutation {
 createItems(itemInputs: [ItemInput]): [Item!]
+}
 `
 
 module.exports = {
