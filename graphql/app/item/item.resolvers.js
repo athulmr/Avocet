@@ -40,7 +40,11 @@ module.exports = {
      */
     items: async args => {
         try{
-            console.log(args.item);
+            console.log('Item',args.item);
+            //console.log('Item Name',new RegExp(args.item.name, "i"));
+            if(typeof args.item.name !== 'undefined') {
+                args.item.name = await { $regex: '.*' + args.item.name + '.*', $options: 'i' };  
+            } 
             const query = JSON.parse(JSON.stringify(args.item));
             console.log(query);
             const itemList = await Item.find(query);
