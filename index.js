@@ -20,8 +20,9 @@ mongoose.connect(process.env.MONGODB_URI, {
     err ? console.log('ERROR', err) : console.log ('💾  Connected to Database')
 });
 
+// Logger Middleware
 const logger = (req, res, next) => {
-    console.log(req.method,req.path);
+    console.log(req.method,req.path,'\n',req.body,'\n');
     next();
 }
 
