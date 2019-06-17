@@ -14,9 +14,7 @@ input MenuInput {
     name: String!
     categories: [String!]!
 }
-`;
 
-const queryInput = `
 input MenuQuery {
     restaurant: ID
     _id: ID
@@ -37,7 +35,6 @@ createMenu(menuInput: MenuInput): Menu!
 module.exports = {
     typeDef: typeDef,
     input: input,
-    queryInput: queryInput,
     query: query,
     mutation: mutation
 }

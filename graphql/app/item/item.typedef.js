@@ -25,9 +25,7 @@ input ItemInput {
     imgUrl: [String!]
     count: Int
 }
-`;
 
-const queryInput = `
 input ItemQuery {
     menu: ID!
     name: String
@@ -53,7 +51,6 @@ createItems(itemInputs: [ItemInput]): [Item!]
 module.exports = {
     typeDef: typeDef,
     input: input,
-    queryInput: queryInput,
     query: query,
     mutation: mutation
 };
