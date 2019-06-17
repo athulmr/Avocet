@@ -1,3 +1,4 @@
 node_modules
 journals
 .env
+.vscode/settings.json

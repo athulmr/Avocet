@@ -14,7 +14,10 @@ const itemSchema = Schema({
         required: true,
     },
     code: {
-        type: String
+        type: String,
+        required: true,
+        maxlength: 4
+
     },
     desc: {
         type: String
