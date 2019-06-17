@@ -16,7 +16,7 @@ input MenuInput {
 }
 `;
 
-const query = `
+const queryInput = `
 input MenuQuery {
     restaurant: ID
     _id: ID
@@ -27,5 +27,5 @@ input MenuQuery {
 module.exports = {
     typeDef: typeDef,
     input: input,
-    queryInput: query
+    queryInput: queryInput
 }

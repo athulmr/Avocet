@@ -10,6 +10,7 @@ type Item {
     imgUrl: [String!]
     count: Int
     addedOn: String
+    # Have to add item active indicator
 }
 `;
 
@@ -26,7 +27,7 @@ input ItemInput {
 }
 `;
 
-const query = `
+const queryInput = `
 input ItemQuery {
     menu: ID!
     name: String
@@ -42,5 +43,5 @@ input ItemQuery {
 module.exports = {
     typeDef: typeDef,
     input: input,
-    queryInput: query
+    queryInput: queryInput
 };
