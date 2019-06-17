@@ -25,8 +25,14 @@ input RestaurantInput {
 const query = `
 restaurants(restaurant: RestaurantInput): [Restaurant!]!
 `
+
+const mutation =`
+createRestaurant(restaurantInput: RestaurantInput): Restaurant!
+`;
+
 module.exports = {
     typeDef: typeDef,
     input: input,
-    query: query
+    query: query,
+    mutation: mutation
 };

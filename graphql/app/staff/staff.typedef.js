@@ -24,9 +24,14 @@ input StaffInput {
     dob: String
     sex: String
 }
-`
+`;
+
+const mutation = `
+createStaff(staffInput: StaffInput): Staff!
+`;
 
 module.exports = {
     typeDef: typeDef,
-    input: input
+    input: input,
+    mutation: mutation
 }

@@ -27,8 +27,13 @@ const query = `
 owners(owner: OwnerInput): [Owner!]!
 `;
 
+const mutation = `
+createOwner(ownerInput: OwnerInput): Owner!
+`
+
 module.exports = {
     typeDef: typeDef,
     input: input,
-    query: query
+    query: query,
+    mutation: mutation
 };

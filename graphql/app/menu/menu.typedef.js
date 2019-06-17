@@ -28,9 +28,14 @@ const query =`
 menu(menu: MenuQuery): [Menu!]!
 `;
 
+const mutation = `
+createMenu(menuInput: MenuInput): Menu!
+`;
+
 module.exports = {
     typeDef: typeDef,
     input: input,
     queryInput: queryInput,
-    query: query
+    query: query,
+    mutation: mutation
 }

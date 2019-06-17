@@ -44,9 +44,14 @@ const query = `
 items(item: ItemQuery): [Item!]!
 `;
 
+const mutation = `
+createItems(itemInputs: [ItemInput]): [Item!]
+`
+
 module.exports = {
     typeDef: typeDef,
     input: input,
     queryInput: queryInput,
-    query: query
+    query: query,
+    mutation: mutation
 };

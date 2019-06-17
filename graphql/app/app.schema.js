@@ -12,6 +12,8 @@ const typeDefs = Menu.typeDef + Images + Item.typeDef + Owner.typeDef + Restaura
 const inputs = Menu.input + Item.input + Restaurant.input + Owner.input + Staff.input;
 const queryInputs = Menu.queryInput + Item.queryInput;
 const rootQuery = Restaurant.query + Owner.query + Item.query;
+const rootMutation = Restaurant.mutation + Menu.mutation + Staff.mutation + Owner.mutation + Item.mutation;
+
 
 module.exports = buildSchema(typeDefs + inputs + queryInputs + `
 
@@ -20,17 +22,14 @@ type RootQuery {`
   `
 }
 
-type RootMutation {
-    createOwner(ownerInput: OwnerInput): Owner!
-    createStaff(staffInput: StaffInput): Staff!
-    createRestaurant(restaurantInput: RestaurantInput): Restaurant!
-    createMenu(menuInput: MenuInput): Menu!
-    createItems(itemInputs: [ItemInput]): [Item!]
+type RootMutation {`
++rootMutation+
+`
 }
+
 schema {
     query: RootQuery
     mutation: RootMutation
 }
-
 
 `);
