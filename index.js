@@ -3,11 +3,19 @@ const bodyParser = require('body-parser');
 const dotenv = require('dotenv');
 const mongoose = require('mongoose');
 const graphqlHttp = require('express-graphql');
+const cors = require('cors');
 
 const graphQlSchema = require('./graphql/app/app.schema');
 const graphQlResolvers = require('./graphql/app/app.resolvers');
 
 const app = express();
+
+const corsOptions = {
+  origin: '*',
+  optionsSuccessStatus: 200 // some legacy browsers (IE11, various SmartTVs) choke on 204
+}
+
+app.use(cors(corsOptions));
 
 dotenv.config();
 
