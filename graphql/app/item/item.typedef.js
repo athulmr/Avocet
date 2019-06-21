@@ -13,17 +13,6 @@ type Item {
     # Have to add item active indicator
 }
 
-input ItemInput {
-    menu: ID!
-    name: String!
-    code: String!
-    desc: String
-    category: [String!]!
-    price: Float!
-    imgUrl: [String!]
-    count: Int
-}
-
 input ItemQuery {
     menu: ID!
     name: String
@@ -31,6 +20,17 @@ input ItemQuery {
     desc: String
     category: [String!]
     price: Float
+    imgUrl: [String!]
+    count: Int
+}
+
+input ItemInput {
+    menu: ID!
+    name: String!
+    code: String!
+    category: [String!]
+    price: Float!
+    desc: String
     imgUrl: [String!]
     count: Int
 }
@@ -44,7 +44,7 @@ extend type RootQuery {
 
 const mutation = `
 extend type RootMutation {
-createItems(itemInputs: [ItemInput]): [Item!]
+    createItems(itemInputs: [ItemInput]): [Item!]
 }
 `
 
