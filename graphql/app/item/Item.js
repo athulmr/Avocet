@@ -12,15 +12,18 @@ const itemSchema = Schema({
     name: {
         type: String,
         required: true,
+        maxlength: 50,
+        unique: true
     },
     code: {
         type: String,
         required: true,
-        maxlength: 4
-
+        maxlength: 4,
+        unique: true
     },
     desc: {
-        type: String
+        type: String,
+        maxlength: 240
     },
     category: {
         type: [String],
