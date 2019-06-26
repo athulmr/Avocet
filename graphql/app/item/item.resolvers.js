@@ -7,34 +7,41 @@ module.exports = {
      * @param {ItemInput} args Contains details about item and menuId.
      */
     createItems: async args => {
+        console.log("Resolver: createItems", args);
+
         try {
-            console.log("createItem Resolver",args);
+            if (!args) {
+                throw new Error("Didn't receive any argument");
+            }
             const items = JSON.parse(JSON.stringify(args.itemInputs));
+
+            // check if the menu id received is valid or not
             const menuId = items[0].menu;
-            console.log("createItem Resolver Finding Menu");
             const menu = await Menu.findById(menuId);
-            console.log("createItem Resolver Found Menu", menu.name);
-            
-            if(!menu){
+            if (!menu) {
                 throw new Error("Menu do not exist");
             }
-            
-            console.log("createItem Resolver adding addedOn");
-            await items.forEach(item => {
-                item["addedOn"] = new Date();                
-                });
-                console.log("createItem Resolver added [0]addedOn", items[0].addedOn);
 
-                
-                //const item = new Item(items);
-                const results = await Item.insertMany(items);
-                console.log('Item Saved');
-                const alreadyExistingItems = await Item.find({_id: {$in: menu.items}});
-                console.log('Found already Existing');
-            
+            // add addedOn property to each items
+            await items.forEach(item => {
+                item["addedOn"] = new Date();
+            });
+
+            // save all the items
+            const results = await Item.insertMany(items);
+
+            // add the saved items to menus already existing list of items
+            const alreadyExistingItems = await Item.find({
+                _id: {
+                    $in: menu.items
+                }
+            });
             menu.items = alreadyExistingItems.concat(results);
             await menu.save();
+
+            console.log('results: ', results);
             
+
             return [...results];
         } catch (err) {
             throw new Error(err);
@@ -46,23 +53,27 @@ module.exports = {
      * @param {Item} args
      */
     items: async args => {
-        try{
-            console.log('Item',args);
-            console.log('Item',args.item);
-            //console.log('Item Name',new RegExp(args.item.name, "i"));
-            if(typeof args.item.name !== 'undefined') {
-                args.item.name = await { $regex: '.*' + args.item.name + '.*', $options: 'i' };  
-            } 
+        try {
+            if(!args){
+                throw new Error("Didn't receive any argument");
+            }
+
+            // change name to regex type to fetch results with same keyword in it.
+            if (typeof args.item.name !== 'undefined') {
+                args.item.name = await {
+                    $regex: '.*' + args.item.name + '.*',
+                    $options: 'i'
+                };
+            }
             const query = JSON.parse(JSON.stringify(args.item));
-            console.log(query);
             const itemList = await Item.find(query);
 
-            if(!itemList) {
+            if (!itemList) {
                 throw new Error("No Item found");
             }
 
             return itemList;
-        } catch(err){
+        } catch (err) {
             return err;
         }
     }
