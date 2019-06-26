@@ -6,43 +6,41 @@ module.exports = {
      * Creates Items and Add them to Menu's items List.
      * @param {ItemInput} args Contains details about item and menuId.
      */
-    createItems: async args => {
-        console.log("Resolver: createItems", args);
-
+    createItem: async args => {
+        console.log("Resolver: createItem", args);
+        
         try {
             if (!args) {
                 throw new Error("Didn't receive any argument");
             }
-            const items = JSON.parse(JSON.stringify(args.itemInputs));
+            const item = JSON.parse(JSON.stringify(args.itemInput));
 
             // check if the menu id received is valid or not
-            const menuId = items[0].menu;
+            const menuId = item.menu;
             const menu = await Menu.findById(menuId);
             if (!menu) {
                 throw new Error("Menu do not exist");
             }
 
-            // add addedOn property to each items
-            await items.forEach(item => {
-                item["addedOn"] = new Date();
-            });
+            // add addedOn property to item
+            item["addedOn"] = new Date();
 
-            // save all the items
-            const results = await Item.insertMany(items);
+            // save the item
+            const savedItem = await Item.create(item);
 
-            // add the saved items to menus already existing list of items
+            // add the saved item to menus already existing list of items
             const alreadyExistingItems = await Item.find({
                 _id: {
                     $in: menu.items
                 }
             });
-            menu.items = alreadyExistingItems.concat(results);
+            menu.items = alreadyExistingItems.concat(savedItem);
             await menu.save();
 
-            console.log('results: ', results);
-            
+            console.log('result: ', savedItem);
 
-            return [...results];
+
+            return savedItem;
         } catch (err) {
             throw new Error(err);
         }
@@ -54,7 +52,7 @@ module.exports = {
      */
     items: async args => {
         try {
-            if(!args){
+            if (!args) {
                 throw new Error("Didn't receive any argument");
             }
 

@@ -44,7 +44,7 @@ extend type RootQuery {
 
 const mutation = `
 extend type RootMutation {
-    createItems(itemInputs: [ItemInput]): [Item!]
+    createItem(itemInput: ItemInput): Item!
 }
 `
 
