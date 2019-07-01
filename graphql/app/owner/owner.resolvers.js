@@ -9,6 +9,9 @@ module.exports = {
      */
     createOwner: async args => {
         try {
+            if (!args) {
+                throw new Error("Didn't receive any argument");
+            }
             console.log(args);
             const ownerInput = args.ownerInput;
 
