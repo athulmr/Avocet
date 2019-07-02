@@ -74,5 +74,31 @@ module.exports = {
         } catch (err) {
             return err;
         }
+    },
+
+    /**
+     * Delete Item from the database
+     * @param {ID} args
+     */
+    deleteItem: async args => {
+        // TODO have to check if the item is in the current users Restaurants menu.
+        console.log("deleteItem Mutation")
+        try {
+            if(!args.id){
+                throw new Error("Didn't receive any ID in argument");
+            }
+            // Get ID of the item from the args.
+            const itemId = args.id;
+            // Delete item by ID from database
+            const result = await Item.deleteOne({'_id': itemId}).then(data=>{
+                return data;                
+            });
+            if(result.deletedCount == 1){
+                return {'status': true};
+            }
+            return {'status': false};
+        } catch (error) {
+            return err;
+        }
     }
 }

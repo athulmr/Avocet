@@ -13,6 +13,10 @@ type Item {
     # Have to add item active indicator
 }
 
+type ItemDeleteStatus {
+    status: Boolean!
+}
+
 input ItemQuery {
     menu: ID!
     name: String
@@ -45,6 +49,7 @@ extend type RootQuery {
 const mutation = `
 extend type RootMutation {
     createItem(itemInput: ItemInput): Item!
+    deleteItem(id: String): ItemDeleteStatus!
 }
 `
 
