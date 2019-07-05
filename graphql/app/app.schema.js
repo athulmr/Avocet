@@ -7,9 +7,10 @@ const Staff = require('./staff/staff.typedef');
 const Menu = require('./menu/menu.typedef');
 const Images = require('./images/images.typedef');
 const Item = require('./item/item.typedef');
+const AuthData = require('./auth/authData.typedef');
 
-const typeDefs = Menu.typeDef + Images + Item.typeDef + Owner.typeDef + Restaurant.typeDef + Staff.typeDef;
-const rootQuery = Menu.query + Restaurant.query + Owner.query + Item.query;
+const typeDefs = Menu.typeDef + Images + Item.typeDef + Owner.typeDef + Restaurant.typeDef + Staff.typeDef + AuthData.typeDef;
+const rootQuery = Menu.query + Restaurant.query + Owner.query + Item.query + AuthData.query;
 const rootMutation = Restaurant.mutation + Menu.mutation + Staff.mutation + Owner.mutation + Item.mutation;
 
 
