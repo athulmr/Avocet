@@ -1,4 +1,4 @@
-const Menu = require('../menu/Menu');
+const Menu = require('../menu/menu');
 const Item = require('./Item');
 
 module.exports = {
