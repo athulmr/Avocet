@@ -2,15 +2,15 @@ const mongoose = require('mongoose');
 
 const Schema = mongoose.Schema;
 
-const menuSchema = Schema({
+const categorySchema = Schema({
     restaurant: {
         type: Schema.ObjectId,
-        ref: 'Restaurant',
+        ref: 'Menu',
         require: true,
     },
-    categories: [{
+    items: [{
         type: Schema.ObjectId,
-        ref: 'Category'
+        ref: 'Item'
     }],
     name: {
         type: String,
@@ -22,4 +22,4 @@ const menuSchema = Schema({
     }
 });
 
-module.exports = mongoose.model('Menu', menuSchema);
+module.exports = mongoose.model('Category', categorySchema);

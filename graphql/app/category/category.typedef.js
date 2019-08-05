@@ -1,17 +1,18 @@
 const typeDef = `
-type Menu {
+type Category {
     _id: ID!
-    restaurant: Restaurant!
+    menu: Menu!
     name: String!
     items: [Item!]
+    active: Boolean!
 }
 
-input MenuInput {
-    restaurant: ID!
+input CategoryInput {
+    menu: ID!
     name: String!
 }
 
-input MenuQuery {
+input CategoryQuery {
     restaurant: ID
     _id: ID
     name: String
@@ -20,13 +21,13 @@ input MenuQuery {
 
 const query =`
 extend type RootQuery {
-menu(menu: MenuQuery): [Menu!]!
+category(category: CategoryQuery): [Category!]!
 }
 `;
 
 const mutation = `
 extend type RootMutation {
-createMenu(menuInput: MenuInput): Menu!
+createCategory(categoryInput: CategoryInput): Category!
 }
 `;
 
