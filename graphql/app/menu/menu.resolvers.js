@@ -24,7 +24,7 @@ module.exports = {
             const menu = new Menu(menuInput);
             const savedMenu = await menu.save();
             // add the saved item to menus already existing list of items
-            const alreadyExistingItems = await Restaurant.find({
+            const alreadyExistingItems = await Menu.find({
                 _id: {
                     $in: restaurant.menus
                 }
