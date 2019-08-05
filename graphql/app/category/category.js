@@ -14,10 +14,15 @@ const categorySchema = Schema({
     }],
     name: {
         type: String,
-        required: true
+        required: true,
+        unique: true
     },
     addedOn: {
         type: Date,
+        required: true
+    },
+    active: {
+        type: Boolean,
         required: true
     }
 });

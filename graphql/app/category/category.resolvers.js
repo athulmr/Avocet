@@ -33,6 +33,8 @@ module.exports = {
 
             console.log('result: ', savedCategory);
 
+            return savedCategory;
+
         } catch (err) {
             return err;
         }
