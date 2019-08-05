@@ -12,7 +12,7 @@ input MenuInput {
 }
 
 input MenuQuery {
-    restaurant: ID
+    restaurant: ID!
     _id: ID
     name: String
 }

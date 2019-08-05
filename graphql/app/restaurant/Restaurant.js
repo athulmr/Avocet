@@ -33,10 +33,10 @@ const restaurantSchema = Schema({
         type: [Schema.ObjectId],
         ref: 'Staff'
     },
-    menu: {
+    menus: [{
         type: Schema.ObjectId,
         ref: 'Menu'
-    },
+    }],
     img: {
         logo: String,
         banner: String,

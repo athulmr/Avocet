@@ -22,13 +22,19 @@ module.exports = {
             menuInput.restaurant = restaurant;
 
             const menu = new Menu(menuInput);
-            const result = await menu.save();
-            restaurant.menu = result;
-
+            const savedMenu = await menu.save();
+            // add the saved item to menus already existing list of items
+            const alreadyExistingItems = await Restaurant.find({
+                _id: {
+                    $in: restaurant.menus
+                }
+            });
+            restaurant.menus = alreadyExistingItems.concat(savedMenu);
             await restaurant.save();
+
             return {
-                ...result._doc,
-                _id: result.id
+                ...savedMenu._doc,
+                _id: savedMenu.id
             };
 
         } catch (err) {
@@ -39,6 +45,11 @@ module.exports = {
     menu: async args => {
         try{
             console.log(args.menu);
+            const restaurant = await Restaurant.findById(args.menu.restaurant);
+
+            if(!restaurant){
+                throw new Error("Restaurant do not exist!");
+            }
             const query = JSON.parse(JSON.stringify(args.menu));
             console.log(query);
             const menuList = await Menu.find(query);
