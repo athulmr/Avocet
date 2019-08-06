@@ -13,13 +13,11 @@ const itemSchema = Schema({
         type: String,
         required: true,
         maxlength: 50,
-        unique: true
     },
     code: {
         type: String,
         required: true,
         maxlength: 4,
-        unique: true
     },
     desc: {
         type: String,
@@ -40,6 +38,9 @@ const itemSchema = Schema({
         required: true
     }
 })
+
+itemSchema.index({name:1, category:1}, { unique: true });
+itemSchema.index({code:1, category:1}, { unique: true });
 
 itemSchema.plugin(uniqueValidator);
 
