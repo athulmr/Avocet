@@ -26,6 +26,6 @@ const categorySchema = Schema({
     }
 });
 
-temSchema.index({name:1, menu:1}, { unique: true });
+categorySchema.index({name:1, menu:1}, { unique: true });
 
 module.exports = mongoose.model('Category', categorySchema);
