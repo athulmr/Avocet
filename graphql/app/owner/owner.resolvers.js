@@ -20,12 +20,14 @@ module.exports = {
 
             const owner = new Owner(ownerInput);
 
-            const result = await owner.save()
+            return await owner.save()
+            .then( data => {
+                return { data: data };
+            })
             .catch( err => {
                 console.log("Error while saving Owner : ",err.message);
+                return { error: err.message };
             });
-
-            return result;
             
         } catch(err) {
             console.log(err);
