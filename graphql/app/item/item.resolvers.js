@@ -17,26 +17,17 @@ module.exports = {
 
             // check if the menu id received is valid or not
             const categoryId = item.category;
-            const category = await Category.findById(categoryId);
-            if (!category) {
-                throw new Error("Category do not exist");
-            }
+            const category = await Category.findById(categoryId).catch( err => {throw new Error("Category do not exist")});
 
             // add addedOn property to item
             item["addedOn"] = new Date();
             item["active"] = true;
 
-
             // save the item
             const savedItem = await Item.create(item);
 
             // add the saved item to menus already existing list of items
-            const alreadyExistingItems = await Item.find({
-                _id: {
-                    $in: category.items
-                }
-            });
-            category.items = alreadyExistingItems.concat(savedItem);
+            category.items.push(savedItem);
             await category.save();
 
             console.log('result: ', savedItem);

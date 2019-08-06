@@ -11,11 +11,7 @@ module.exports = {
         try {
             const restaurantInput = args.restaurantInput;
 
-            const owner = await Owner.findById(restaurantInput.owner);
-
-            if (!owner) {
-                throw new Error("Owner do not Exist");
-            }
+            const owner = await Owner.findById(restaurantInput.owner).catch(err => {throw new Error("Owner do not Exist")});
 
             // have to add phone number for finding restaurant(some restaurants may not have email)
             restaurantInput["owners"] = [];

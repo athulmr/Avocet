@@ -9,14 +9,7 @@ module.exports = {
     createMenu: async args => {
         try {
             const menuInput = args.menuInput;
-            const restaurant = await Restaurant.findById(menuInput.restaurant);
-
-            if(!restaurant){
-                throw new Error("Restaurant do not exist!");
-            }
-            if (restaurant.menu) {
-                throw new Error("Already have a Menu tagged with this restaurant");
-            }
+            const restaurant = await Restaurant.findById(menuInput.restaurant).catch(err => {throw new Error("Restaurant do not exist!")});
 
             menuInput["addedOn"] = new Date();
             menuInput.restaurant = restaurant;
@@ -24,12 +17,7 @@ module.exports = {
             const menu = new Menu(menuInput);
             const savedMenu = await menu.save();
             // add the saved item to menus already existing list of items
-            const alreadyExistingItems = await Menu.find({
-                _id: {
-                    $in: restaurant.menus
-                }
-            });
-            restaurant.menus = alreadyExistingItems.concat(savedMenu);
+            restaurant.menus.push(savedMenu);
             await restaurant.save();
 
             return {

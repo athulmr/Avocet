@@ -3,7 +3,7 @@ type Menu {
     _id: ID!
     restaurant: Restaurant!
     name: String!
-    items: [Item!]
+    categories: [Category!]
 }
 
 input MenuInput {
