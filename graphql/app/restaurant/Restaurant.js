@@ -10,17 +10,14 @@ const restaurantSchema = Schema({
     name: {
         type: String,
         required: true,
-        unique: true
     },
     code: {
         type: String,
         required: true,
-        unique: true,
         maxlength: 4
     },
     address: {
         type: String,
-        unique: true
     },
     phone: [String],
     email: [String],
@@ -47,5 +44,10 @@ const restaurantSchema = Schema({
         required: true
     }
 });
+
+menuSchema.index({name:1, owners:1}, { unique: true });
+menuSchema.index({name:1, address:1}, { unique: true });
+menuSchema.index({code:1, owners:1}, { unique: true });
+
 
 module.exports = mongoose.model('Restaurant', restaurantSchema);

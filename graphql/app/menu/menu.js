@@ -22,4 +22,7 @@ const menuSchema = Schema({
     }
 });
 
+menuSchema.index({name:1, restaurant:1}, { unique: true });
+
+
 module.exports = mongoose.model('Menu', menuSchema);
