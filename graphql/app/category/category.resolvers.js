@@ -40,19 +40,24 @@ module.exports = {
         }
 
     },
-    category: async args => {
+    categories: async args => {
         try{
-            console.log(args.menu);
-            const query = JSON.parse(JSON.stringify(args.menu));
-            console.log(query);
-            const menuList = await Menu.find(query);
-            console.log(menuList);
+            console.log(args.category);
+            const menu = await Menu.findById(args.category.menu);
 
-            if(!menuList) {
-                throw new Error("No Menu found");
+            if(!menu){
+                throw new Error("Menu do not exist!");
+            }
+            const query = JSON.parse(JSON.stringify(args.category));
+            console.log(query);
+            const categoryList = await Category.find(query);
+            console.log(categoryList);
+
+            if(!categoryList) {
+                throw new Error("No Category found");
             }
 
-            return menuList;
+            return categoryList;
         } catch(err){
             return err;
         }

@@ -13,7 +13,7 @@ input CategoryInput {
 }
 
 input CategoryQuery {
-    restaurant: ID
+    menu: ID!
     _id: ID
     name: String
 }
@@ -21,7 +21,7 @@ input CategoryQuery {
 
 const query =`
 extend type RootQuery {
-category(category: CategoryQuery): [Category!]!
+categories(category: CategoryQuery): [Category!]!
 }
 `;
 
