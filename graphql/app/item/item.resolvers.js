@@ -1,4 +1,4 @@
-const Menu = require('../menu/menu');
+const Category = require('../category/category');
 const Item = require('./Item');
 
 module.exports = {
@@ -16,14 +16,16 @@ module.exports = {
             const item = JSON.parse(JSON.stringify(args.itemInput));
 
             // check if the menu id received is valid or not
-            const menuId = item.menu;
-            const menu = await Menu.findById(menuId);
-            if (!menu) {
-                throw new Error("Menu do not exist");
+            const categoryId = item.category;
+            const category = await Category.findById(categoryId);
+            if (!category) {
+                throw new Error("Category do not exist");
             }
 
             // add addedOn property to item
             item["addedOn"] = new Date();
+            item["active"] = true;
+
 
             // save the item
             const savedItem = await Item.create(item);
@@ -31,11 +33,11 @@ module.exports = {
             // add the saved item to menus already existing list of items
             const alreadyExistingItems = await Item.find({
                 _id: {
-                    $in: menu.items
+                    $in: category.items
                 }
             });
-            menu.items = alreadyExistingItems.concat(savedItem);
-            await menu.save();
+            category.items = alreadyExistingItems.concat(savedItem);
+            await category.save();
 
             console.log('result: ', savedItem);
 

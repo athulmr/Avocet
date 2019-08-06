@@ -18,21 +18,19 @@ type ItemDeleteStatus {
 }
 
 input ItemQuery {
-    menu: ID!
+    category: ID!
     name: String
     code: String
     desc: String
-    category: [String!]
     price: Float
     imgUrl: [String!]
     count: Int
 }
 
 input ItemInput {
-    menu: ID!
+    category: ID!
     name: String!
     code: String!
-    category: [String!]
     price: Float!
     desc: String
     imgUrl: [String!]

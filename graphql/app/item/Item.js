@@ -4,9 +4,9 @@ const uniqueValidator = require('mongoose-unique-validator');
 const Schema = mongoose.Schema;
 
 const itemSchema = Schema({
-    menu: {
+    category: {
         type: Schema.ObjectId,
-        ref: 'Menu',
+        ref: 'Category',
         required: true
     },
     name: {
@@ -25,10 +25,6 @@ const itemSchema = Schema({
         type: String,
         maxlength: 240
     },
-    category: {
-        type: [String],
-        required: true
-    },
     price: {
         type: Number,
         required: true
@@ -37,6 +33,10 @@ const itemSchema = Schema({
     count: Number,
     addedOn: {
         type: Date,
+        required: true
+    },
+    active: {
+        type: Boolean,
         required: true
     }
 })
