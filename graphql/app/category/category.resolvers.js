@@ -9,27 +9,18 @@ module.exports = {
     createCategory: async args => {
         try {
             const categoryInput = args.categoryInput;
-            const menu = await Menu.findById(categoryInput.menu);
-
-            if(!menu){
-                throw new Error("Menu do not exist!");
-            }
+            const menu = await Menu.findById(categoryInput.menu).catch(err => {throw new Error("Menu do not exist",err)});
 
             categoryInput["addedOn"] = new Date();
             categoryInput["active"] = true;
             categoryInput.menu = menu;
 
             const category = new Category(categoryInput);
-            const savedCategory = await category.save();
+            const savedCategory = await category.save().catch(err => {throw new Error("Error while saving category",err)});
 
             // add the saved item to menus already existing list of items
-            const alreadyExistingCategories = await Category.find({
-                _id: {
-                    $in: menu.categories
-                }
-            });
-            menu.categories = alreadyExistingCategories.concat(savedCategory);
-            await menu.save();
+            menu.categories.push(savedCategory);
+            await menu.save().catch(err => {throw new Error("Error while updating Menu",err)});;
 
             console.log('result: ', savedCategory);
 
