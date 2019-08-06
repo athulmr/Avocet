@@ -12,6 +12,7 @@ module.exports = {
             const restaurant = await Restaurant.findById(menuInput.restaurant).catch(err => {throw new Error("Restaurant do not exist!")});
 
             menuInput["addedOn"] = new Date();
+            menuInput["active"] = true;
             menuInput.restaurant = restaurant;
 
             const menu = new Menu(menuInput);

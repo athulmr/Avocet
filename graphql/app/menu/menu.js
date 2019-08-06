@@ -19,6 +19,10 @@ const menuSchema = Schema({
     addedOn: {
         type: Date,
         required: true
+    },
+    active: {
+        type: Boolean,
+        required: true
     }
 });
 
