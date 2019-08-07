@@ -17,7 +17,8 @@ db.createUser( { user: "masterChef",
 ```
 mutation {
   createOwner(ownerInput: {name: "Athul", email: "athul@mail.com", phone: "8148405590", pwd: "passme"}) {
-    _id
+    data
+    error
   }
 }
 ```
@@ -26,7 +27,8 @@ mutation {
 ```
 mutation {
   createRestaurant(restaurantInput: {name: "Knight Riders", code: "KNR", address: "BTM Layout, Bangalore", phone: "8148405590", email: "contact@knightriders.com", owner: "5d485e8f75cf944193344f2f"}) {
-    _id
+    data
+    error
   }
 }
 ```
