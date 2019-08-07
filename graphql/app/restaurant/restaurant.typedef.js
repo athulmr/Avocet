@@ -1,6 +1,6 @@
 const typeDef = `
 type Restaurant {
-    _id: ID!
+    _id: ID
     name: String!
     code: String!
     address: String!
@@ -20,6 +20,11 @@ input RestaurantInput {
     email: String!
     owner: ID!
 }
+
+type RestaurantOutput {
+    data: Restaurant
+    error: String
+}
 `;
 
 const query = `
@@ -30,7 +35,7 @@ restaurants(restaurant: RestaurantInput): [Restaurant!]!
 
 const mutation =`
 extend type RootMutation {
-createRestaurant(restaurantInput: RestaurantInput): Restaurant!
+createRestaurant(restaurantInput: RestaurantInput): RestaurantOutput
 }
 `;
 
