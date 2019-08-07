@@ -9,46 +9,52 @@ module.exports = {
    * @param {LoginInput} args contains details for login.
    */
   login: async args => {
-    const query = JSON.parse(JSON.stringify(args.login));
-    console.log("This is a login query", query);
-    const owner = await Owner.findOne({
-      email: query.userId
-    });
-    let token = "";
+    try {
 
-    // Check if owner exist.
-    if (owner) {
-      // Check if password matches.
-      const isMatch = await bcrypt.compareSync(
-        query.pwd,
-        owner.pwd,
-        (err, isMatch) => {
-          return isMatch;
-        }
-      );
+      console.log("This is a login query", args);
+      const query = JSON.parse(JSON.stringify(args.login));
+      const owner = await Owner.findOne({
+        email: query.username
+      });
 
-      if (isMatch) {
-        // Create a token if password is match.
-        token = jwt.sign(
-          {
-            username: query.userId
-          },
-          "secretKeyUsedForDecrypt",
-          {
-            expiresIn: "24h"
+      let authData = {
+        error: "Username or Password incorrect"
+      };
+
+      if (owner) {
+        // Check if password matches.        
+        const isMatch = await bcrypt.compareSync(
+          query.pwd,
+          owner.pwd,
+          (err, isMatch) => {
+            return isMatch;
           }
         );
-      } else {
-        throw new Error("Username or Password incorrect");
-      }
+
+        // Create a token if password is match.
+        if (isMatch) {
+          let token = jwt.sign({
+              userId: owner._id
+            },
+            "secretKeyUsedForDecrypt", {
+              expiresIn: "24h"
+            }
+          );
+          authData = {
+            token: token,
+            tokenExpiration: 24
+          };
+          return {
+            data: authData
+          };
+        }
+      };
+
+      return authData;
+      
+    } catch (err) {
+      console.log(err);
     }
-
-    const AuthData = {
-      userId: query.userId,
-      token: token,
-      tokenExpiration: 30
-    };
-
-    return AuthData;
   }
+
 };

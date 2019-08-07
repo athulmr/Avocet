@@ -1,19 +1,23 @@
 const typeDef = `
 type AuthData {
-    userId: ID
     token: String!
     tokenExpiration: Int!
 }
 
 input LoginInput {
-    userId: ID!
+    username: String
     pwd: String!
+}
+
+type LoginOutput {
+    data: AuthData
+    error: String
 }
 `;
 
 const query = `
 extend type RootQuery {
-    login(login: LoginInput): AuthData!
+    login(login: LoginInput): LoginOutput
 }
 `;
 
