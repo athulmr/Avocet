@@ -41,6 +41,7 @@ module.exports = {
             }
           );
           authData = {
+            userId: owner._id,
             token: token,
             tokenExpiration: 24
           };
@@ -51,7 +52,7 @@ module.exports = {
       };
 
       return authData;
-      
+
     } catch (err) {
       console.log(err);
     }
