@@ -8,7 +8,7 @@ type Restaurant {
     email: [String!]
     owners: Owner!
     staffs: [Staff!]
-    menu: [Menu!]
+    menus: [Menu!]
     img: Images
 }
 
@@ -21,15 +21,25 @@ input RestaurantInput {
     owner: ID!
 }
 
+input RestaurantQuery {
+    _id: ID!
+    name: String
+    code: String
+    address: String
+    phone: String
+    email: String
+    owners: [ID!]
+}
+
 type RestaurantOutput {
-    data: Restaurant
+    data: [Restaurant]
     error: String
 }
 `;
 
 const query = `
 extend type RootQuery {
-restaurants(restaurant: RestaurantInput): [Restaurant!]!
+restaurants(restaurant: RestaurantQuery): RestaurantOutput!
 }
 `
 

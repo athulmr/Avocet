@@ -24,7 +24,7 @@ module.exports = {
                 // Add new restaurant to Owner's restaurant list.               
                 owner.restaurants.push(data);
                 owner.save();
-                return { data : data };                
+                return { data : [data] };                
             })
             .catch( err => {
                 console.log("createRestaurant Unable to save New Restaurant to DB", err.message);
@@ -41,8 +41,17 @@ module.exports = {
             console.log(args.restaurant);
             const query = JSON.parse(JSON.stringify(args.restaurant));
             console.log(query);
-            const restaurants = await Owner.find(query).catch( err => {
-                throw new Error("No Owner found");
+            const restaurants = await Restaurant.find(query)
+            .populate('menus')
+            .then(data => {
+                console.log('yep', data);
+                
+                return { data : data };
+            }).catch( err => {
+                console.log('nope');
+
+                return { error : err }
+                throw new Error("No Restaurant found");
             });
 
             return restaurants;
