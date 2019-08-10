@@ -77,16 +77,12 @@ describe('auth', () => {
                 console.log('Deleting test users', JSON.stringify(data));
                 mongoose.disconnect();
                 console.log(dbDisconnectedMessage);
-                console.groupEnd();
-
                 done();
             })
             .catch(err => {
                 console.log(err);
                 mongoose.disconnect();
                 console.log(dbDisconnectedMessage);
-                console.groupEnd();
-
                 done();
 
             });

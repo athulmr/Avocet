@@ -7,10 +7,9 @@ const Owner = require('./Owner');
 const mongoose = require('mongoose');
 
 
-
 describe('owner', () => {
-
-
+    
+    
     dbUrl = 'mongodb://masterChef:90IqJ8ikNnRsyLj@localhost:27017/rpos';
     // dbUrl = process.env.MONGODB_URI;
     dbConnectedMessage = 'DB Connected';
@@ -19,9 +18,10 @@ describe('owner', () => {
     testerNumber = '9009009001';
     preExistTesterEmail = 'pre_tester_2@mail.com';
     preExistTesterNumber = '9009009002';
-
-
+    
+    
     before((done) => {
+        console.groupEnd(); 
         console.group();
         console.log('\x1b[36m%s\x1b[2m', '======Before\n');
         done()
