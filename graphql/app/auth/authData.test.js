@@ -14,11 +14,13 @@ describe('auth', () => {
     // dbUrl = process.env.MONGODB_URI;
     dbConnectedMessage = 'DB Connected';
     dbDisconnectedMessage = 'DB Disconnected \n';
+    testerEmail = 'auth_tester@mail.com';
+    testerNumber = '9009009000';
 
 
     before((done) => {
         console.group();
-        console.log('\x1b[36m%s\x1b[2m','======Before');
+        console.log('\x1b[36m%s\x1b[2m', '======Before');
         dotenv.config();
         mongoose.connect(dbUrl, {
             useCreateIndex: true,
@@ -31,30 +33,32 @@ describe('auth', () => {
             .then(encryptedPass => {
                 Owner.create({
                         name: "test user",
-                        email: "auth_tester@mail.com",
-                        phone: "9009009000",
+                        email: testerEmail,
+                        phone: testerNumber,
                         pwd: encryptedPass,
                         addedOn: today
                     })
                     .then(data => {
                         console.log('Created a test user');
+                        // console.log(JSON.stringify(data));
+                        
                         mongoose.disconnect();
                         console.debug(dbDisconnectedMessage);
                         done();
                     })
                     .catch(err => {
-                        console.log(err);
+                        console.log(JSON.stringify(err));
                         mongoose.disconnect();
                         console.debug(dbDisconnectedMessage);
                         done();
                     });
             });
-            
+
     });
 
     after((done) => {
 
-        console.log('\n \x1b[36m%s\x1b[2m','======After');
+        console.log('\n\x1b[36m%s\x1b[2m', '======After');
         mongoose.connect(dbUrl, {
             useCreateIndex: true,
             useNewUrlParser: true
@@ -66,33 +70,50 @@ describe('auth', () => {
 
         Owner.deleteMany({
                 email: {
-                    $in: ['auth_tester@mail.com']
+                    $in: [testerEmail]
                 }
             })
             .then(data => {
                 console.log('Deleting test users', JSON.stringify(data));
                 mongoose.disconnect();
                 console.log(dbDisconnectedMessage);
+                console.groupEnd();
+
                 done();
             })
             .catch(err => {
                 console.log(err);
                 mongoose.disconnect();
                 console.log(dbDisconnectedMessage);
+                console.groupEnd();
+
                 done();
 
-            });;
+            });
     });
     context('login', () => {
         it('should be able to login', (done) => {
             request.post('graphql')
                 .send({
-                    query: '{login(login: {username: "auth_tester@mail.com", pwd: "testPass"}) {data {userId token tokenExpiration } error} }'
+                    query: `
+                    {
+                        login(login: {
+                            username: "`+testerEmail+`",
+                            pwd: "testPass"
+                        }) {
+                            data {
+                                userId
+                                token
+                                tokenExpiration 
+                            } 
+                            error
+                        } 
+                    }`
                 })
                 .expect(200)
                 .end((err, res) => {
                     // console.log(res.body);
-                    
+
                     if (err) return done(err);
                     if (!res.body.data.login.data) return done(new Error('Data is Null ' + JSON.stringify(res.body.data.login)));
                     expect(res.body.data.login.data).to.have.property('userId');
@@ -105,12 +126,25 @@ describe('auth', () => {
         it('should NOT be able to login', (done) => {
             request.post('graphql')
                 .send({
-                    query: '{login(login: {username: "auth_tester@mail.com", pwd: "wrongPass"}) {data {userId token tokenExpiration } error} }'
+                    query: `
+                    {
+                        login(login: {
+                            username: "`+testerEmail+`",
+                            pwd: "wrongPass"
+                        }) {
+                            data {
+                                userId
+                                token
+                                tokenExpiration 
+                            } 
+                            error
+                        } 
+                    }`
                 })
                 .expect(200)
                 .end((err, res) => {
                     // console.log(res.body);
-                    
+
                     if (err) return done(err);
                     if (!res.body.data.login.error) return done(new Error('Error is Null ' + JSON.stringify(res.body.data.login)));
                     expect(res.body.data.login.error).to.not.null;
