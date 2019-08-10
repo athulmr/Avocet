@@ -22,7 +22,7 @@ input RestaurantInput {
 }
 
 input RestaurantQuery {
-    _id: ID!
+    _id: ID
     name: String
     code: String
     address: String

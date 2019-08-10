@@ -45,7 +45,6 @@ const restaurantSchema = Schema({
     }
 });
 
-restaurantSchema.index({name:1, owners:1}, { unique: true });
 restaurantSchema.index({name:1, address:1}, { unique: true });
 restaurantSchema.index({code:1, owners:1}, { unique: true });
 
