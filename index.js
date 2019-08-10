@@ -30,7 +30,7 @@ mongoose.connect(process.env.MONGODB_URI, {
 
 // Logger Middleware
 const logger = (req, res, next) => {
-    console.log(req.method,req.path,'\n',req.body,'\n');
+    console.log(req.method,req.path,'\n',JSON.stringify(req.body),'\n');
     next();
 }
 
