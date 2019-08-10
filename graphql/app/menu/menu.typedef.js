@@ -16,6 +16,11 @@ input MenuQuery {
     _id: ID
     name: String
 }
+
+type MenuOut {
+    data: [Menu]
+    error: String
+}
 `;
 
 const query =`
@@ -26,7 +31,7 @@ menu(menu: MenuQuery): [Menu!]!
 
 const mutation = `
 extend type RootMutation {
-createMenu(menuInput: MenuInput): Menu!
+createMenu(menuInput: MenuInput): MenuOut!
 }
 `;
 

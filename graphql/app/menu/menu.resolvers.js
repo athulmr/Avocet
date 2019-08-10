@@ -9,47 +9,54 @@ module.exports = {
     createMenu: async args => {
         try {
             const menuInput = args.menuInput;
-            const restaurant = await Restaurant.findById(menuInput.restaurant).catch(err => {throw new Error("Restaurant do not exist!")});
+            const result = await Restaurant.findById(menuInput.restaurant)
+                .then(restaurant => {
+                    menuInput["addedOn"] = new Date();
+                    menuInput["active"] = true;
+                    menuInput.restaurant = restaurant;
 
-            menuInput["addedOn"] = new Date();
-            menuInput["active"] = true;
-            menuInput.restaurant = restaurant;
+                    const menu = new Menu(menuInput);
+                    return menu.save()
+                    .then( data => {
+                        // add the saved item to menus already existing list of items
+                        restaurant.menus.push(data);
+                        restaurant.save();
+                        return { data: [data] }
+                    });
+                })
+                .catch(err => {
+                    console.log("Restaurant do not exist!")
+                    return { error : err.message }
+                });
 
-            const menu = new Menu(menuInput);
-            const savedMenu = await menu.save();
-            // add the saved item to menus already existing list of items
-            restaurant.menus.push(savedMenu);
-            await restaurant.save();
-
-            return {
-                ...savedMenu._doc,
-                _id: savedMenu.id
-            };
+            return result;
 
         } catch (err) {
+            console.log(err.message);
+            
             return err;
         }
 
     },
     menu: async args => {
-        try{
-            console.log(args.menu);
+        try {
+            // console.log(args.menu);
             const restaurant = await Restaurant.findById(args.menu.restaurant);
 
-            if(!restaurant){
+            if (!restaurant) {
                 throw new Error("Restaurant do not exist!");
             }
             const query = JSON.parse(JSON.stringify(args.menu));
             console.log(query);
             const menuList = await Menu.find(query);
-            console.log(menuList);
+            // console.log(menuList);
 
-            if(!menuList) {
+            if (!menuList) {
                 throw new Error("No Menu found");
             }
 
             return menuList;
-        } catch(err){
+        } catch (err) {
             return err;
         }
     }
