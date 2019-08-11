@@ -41,20 +41,26 @@ module.exports = {
     categories: async args => {
         try {
             console.log(args.category);
-            const menu = await Menu.findById(args.category.menu).catch(err => {
-                throw new Error("Menu do not exist!")
-            });
-
             const query = JSON.parse(JSON.stringify(args.category));
             console.log(query);
-            const categoryList = await Category.find(query).catch(err => {
-                throw new Error("No Category found")
-            });
-            console.log(categoryList);
+            const restaurants = await Category.find(query)
+                .populate('items')
+                .then(data => {
+                    // console.log( data);
+                    return {
+                        data: data
+                    };
+                }).catch(err => {
+                    console.log(JSON.stringify(err));
 
-            return categoryList;
+                    return {
+                        error: err
+                    }
+                });
+
+            return restaurants;
         } catch (err) {
-            return err;
+            throw err;
         }
     }
 }
