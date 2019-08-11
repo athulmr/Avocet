@@ -17,17 +17,22 @@ input CategoryQuery {
     _id: ID
     name: String
 }
+
+type CategoryOut {
+    data: [Category]
+    error: String
+}
 `;
 
 const query =`
 extend type RootQuery {
-categories(category: CategoryQuery): [Category!]!
+categories(category: CategoryQuery): CategoryOut!
 }
 `;
 
 const mutation = `
 extend type RootMutation {
-createCategory(categoryInput: CategoryInput): Category!
+createCategory(categoryInput: CategoryInput): CategoryOut!
 }
 `;
 

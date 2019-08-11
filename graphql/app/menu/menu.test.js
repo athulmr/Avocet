@@ -126,8 +126,8 @@ describe('menu', () => {
     });
 
 
-    context('createRestaurant', () => {
-        it('should be able to createRestaurant', (done) => {
+    context('createMenu', () => {
+        it('should be able to createMenu', (done) => {
             request.post('graphql')
                 .send({
                     query: `
