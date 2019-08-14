@@ -8,8 +8,8 @@ const mongoose = require('mongoose');
 
 
 describe('owner', () => {
-    
-    
+
+
     dbUrl = 'mongodb://masterChef:90IqJ8ikNnRsyLj@localhost:27017/rpos';
     // dbUrl = process.env.MONGODB_URI;
     dbConnectedMessage = 'DB Connected';
@@ -18,10 +18,10 @@ describe('owner', () => {
     testerNumber = '9009009001';
     preExistTesterEmail = 'pre_tester_2@mail.com';
     preExistTesterNumber = '9009009002';
-    
-    
+
+
     before((done) => {
-        console.groupEnd(); 
+        console.groupEnd();
         console.group();
         console.log('\x1b[36m%s\x1b[2m', '======Before\n');
         done()
@@ -65,20 +65,27 @@ describe('owner', () => {
             request.post('graphql')
                 .send({
                     query: `
-                    mutation 
-                    {
-                        createOwner(ownerInput: {
-                            name: "test user",
-                            email: "`+testerEmail+`",
-                            phone: "`+testerNumber+`",
-                            pwd: "testPass"
-                        }) {
-                            data{
-                                _id
-                            }
-                            error
+                    mutation SignUpOwner($ownerInput: OwnerInput) {
+                        createOwner(ownerInput: $ownerInput) {
+                          data {
+                            _id
+                          }
+                          error
                         }
-                    }`
+                      }    
+                    `,
+                    variables: `
+                    {
+                        "ownerInput": {
+                            "name": "test user",
+                            "address": "test addrress",
+                            "phone": "`+testerNumber+`",
+                            "email": "`+testerEmail+`",
+                            "pwd": "passme",
+                            "sex": "m"
+                        }
+                    }
+                    `
                 })
                 .expect(200)
                 .end((err, res) => {
@@ -96,19 +103,27 @@ describe('owner', () => {
             request.post('graphql')
                 .send({
                     query: `
-                    mutation {
-                        createOwner(ownerInput: {
-                            name: "test user",
-                            email: "`+testerEmail+`",
-                            phone: "`+preExistTesterNumber+`",
-                            pwd: "testPass"
-                        }) {
-                            data{ 
-                                _id
-                            } 
-                            error
+                    mutation SignUpOwner($ownerInput: OwnerInput) {
+                        createOwner(ownerInput: $ownerInput) {
+                          data {
+                            _id
+                          }
+                          error
                         }
-                    }                    `
+                      }                  
+                    `,
+                    variables: `
+                    {
+                        "ownerInput": {
+                            "name": "test user",
+                            "address": "test addrress",
+                            "phone": "`+testerNumber+`",
+                            "email": "`+testerEmail+`",
+                            "pwd": "passme",
+                            "sex": "m"
+                        }
+                    }
+                      `
                 })
                 .expect(200)
                 .end((err, res) => {
@@ -138,7 +153,7 @@ describe('owner', () => {
                     variables: `
                     {
                         "owner": {
-                            "email": "`+testerEmail+`"
+                            "email": "` + testerEmail + `"
                         }
                     }
                     `

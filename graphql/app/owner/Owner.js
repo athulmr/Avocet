@@ -15,7 +15,7 @@ const ownerSchema = Schema({
     },
     address: String,
     phone: {
-        type: String,
+        type: Number,
         unique: true
     },
     email: {
