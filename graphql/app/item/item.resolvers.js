@@ -8,7 +8,7 @@ module.exports = {
      */
     createItem: async args => {
         console.log("Resolver: createItem", args);
-        
+
         try {
             if (!args) {
                 throw new Error("Didn't receive any argument");
@@ -17,7 +17,9 @@ module.exports = {
 
             // check if the menu id received is valid or not
             const categoryId = item.category;
-            const category = await Category.findById(categoryId).catch( err => {throw new Error("Category do not exist")});
+            const category = await Category.findById(categoryId).catch(err => {
+                throw new Error("Category do not exist")
+            });
 
             // add addedOn property to item
             item["addedOn"] = new Date();
@@ -33,9 +35,13 @@ module.exports = {
             console.log('result: ', savedItem);
 
 
-            return savedItem;
+            return {
+                data: [savedItem],
+            };
         } catch (err) {
-            throw new Error(err);
+            return {
+                error: err.message,
+            };
         }
     },
 
@@ -77,19 +83,25 @@ module.exports = {
         // TODO have to check if the item is in the current users Restaurants menu.
         console.log("deleteItem Mutation")
         try {
-            if(!args.id){
+            if (!args.id) {
                 throw new Error("Didn't receive any ID in argument");
             }
             // Get ID of the item from the args.
             const itemId = args.id;
             // Delete item by ID from database
-            const result = await Item.deleteOne({'_id': itemId}).then(data=>{
-                return data;                
+            const result = await Item.deleteOne({
+                '_id': itemId
+            }).then(data => {
+                return data;
             });
-            if(result.deletedCount == 1){
-                return {'status': true};
+            if (result.deletedCount == 1) {
+                return {
+                    'status': true
+                };
             }
-            return {'status': false};
+            return {
+                'status': false
+            };
         } catch (error) {
             return err;
         }

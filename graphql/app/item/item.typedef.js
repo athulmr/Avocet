@@ -36,6 +36,11 @@ input ItemInput {
     imgUrl: [String!]
     count: Int
 }
+
+type ItemOut {
+    data: [Item]
+    error: String
+}
 `;
 
 const query = `
@@ -46,7 +51,7 @@ extend type RootQuery {
 
 const mutation = `
 extend type RootMutation {
-    createItem(itemInput: ItemInput): Item!
+    createItem(itemInput: ItemInput): ItemOut!
     deleteItem(id: String): ItemDeleteStatus!
 }
 `
