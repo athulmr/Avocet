@@ -17,7 +17,10 @@ db.createUser( { user: "masterChef",
 ```
 mutation {
   createOwner(ownerInput: {name: "Athul", email: "athul@mail.com", phone: "8148405590", pwd: "passme"}) {
-    data
+    data{
+      _id
+      name
+    }
     error
   }
 }
@@ -61,6 +64,24 @@ mutation {
 ```
 
 # Sample Queries
+
+## Get Restaurant
+```
+{
+  restaurants(restaurant: {_id: "5d486a10f1332a6799944187"}) {
+    data {
+      _id
+      menus {
+        name
+        categories {
+          _id
+        }
+      }
+    }
+    error
+  }
+}
+```
 
 ## Get Menu
 ```
