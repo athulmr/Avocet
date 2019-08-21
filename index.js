@@ -4,6 +4,7 @@ const dotenv = require('dotenv');
 const mongoose = require('mongoose');
 const graphqlHttp = require('express-graphql');
 const cors = require('cors');
+const cookieParser = require('cookie-parser');
 
 const graphQlSchema = require('./graphql/app/app.schema');
 const graphQlResolvers = require('./graphql/app/app.resolvers');
@@ -12,6 +13,7 @@ const app = express();
 
 const corsOptions = {
   origin: '*',
+  credentials: true,
   optionsSuccessStatus: 200 // some legacy browsers (IE11, various SmartTVs) choke on 204
 }
 
@@ -19,7 +21,7 @@ app.use(cors(corsOptions));
 
 dotenv.config();
 
-const port = process.env.PORT;
+const PORT = process.env.PORT;
 
 mongoose.connect(process.env.MONGODB_URI, {
     useCreateIndex: true,
@@ -30,7 +32,7 @@ mongoose.connect(process.env.MONGODB_URI, {
 
 // Logger Middleware
 const logger = (req, res, next) => {
-    console.log(req.method,req.path,'\n',JSON.stringify(req.body),'\n');
+    console.log(req.method,req.path,'\n',JSON.stringify(req.body),'\n', JSON.stringify(req.cookies),'\n');
     next();
 }
 
@@ -38,10 +40,13 @@ app.use(bodyParser.urlencoded({
     extended: true
 }));
 app.use(bodyParser.json());
+app.use(cookieParser())
 app.use(logger);
+// Routes
+app.use('/users', require('./routes/users.routes'));
 
 app.get('/', (req, res) =>{
-    res.json({'message':'Avocet (Restaurant Management System) Welcomes you :) '}).status(200);
+    res.json({'message':'Avocet (Store Management System) Welcomes you :) '}).status(200);
 })
 
 app.use(
@@ -53,8 +58,8 @@ app.use(
     })
   );
 
-app.listen(port, (err) =>{
-   err ? console.log('ERROR', err) : console.log('🚀  Server ready at port', port);
+app.listen(PORT, (err) =>{
+   err ? console.log('ERROR', err) : console.log('🚀  Server ready at port', PORT);
 });
 
 module.exports = app;
