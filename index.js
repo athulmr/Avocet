@@ -14,10 +14,17 @@ const passportJWT = passport.authenticate('jwt', { session: false });
 
 const app = express();
 
-const corsOptions = {
-  origin: '*',
+var whitelist = ['http://localhost:4200', 'https://avocet.app']
+var corsOptions = {
   credentials: true,
-  optionsSuccessStatus: 200 // some legacy browsers (IE11, various SmartTVs) choke on 204
+  optionsSuccessStatus: 200, // some legacy browsers (IE11, various SmartTVs) choke on 204
+  origin: function (origin, callback) {
+    if (whitelist.indexOf(origin) !== -1) {
+      callback(null, true)
+    } else {
+      callback(new Error('Not allowed by CORS'))
+    }
+  }
 }
 
 app.use(cors(corsOptions));
@@ -52,10 +59,11 @@ app.get('/', (req, res) =>{
     res.json({'message':'Avocet (Store Management System) Welcomes you :) '}).status(200);
 })
 
-// app.use(passportJWT);
+// app.use();
 
 app.use(
     '/graphql',
+    passportJWT,
     graphqlHttp({
       schema: graphQlSchema,
       rootValue: graphQlResolvers,
