@@ -4,7 +4,7 @@ const dotenv = require('dotenv');
 const url = 'http://localhost:3001/'
 const request = require('supertest')(url);
 const User = require('../../../model/User');
-const Restaurant = require('../restaurant/Restaurant');
+const Restaurant = require('../../../model/Restaurant');
 const mongoose = require('mongoose');
 const bcrypt = require('bcryptjs');
 
