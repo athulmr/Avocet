@@ -16,7 +16,7 @@ input RestaurantInput {
     address: String
     phone: String
     email: String
-    owner: ID!
+    owner: ID
 }
 
 input RestaurantQuery {

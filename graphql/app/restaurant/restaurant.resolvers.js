@@ -12,7 +12,7 @@ module.exports = {
             if (!args) throw new Error("Args are empty, check if you are passing 'variables' or not")
             const restaurantInput = args.restaurantInput;
 
-            restaurantInput.owners = context.user._id;
+            restaurantInput.owner = context.user._id;            
             
             const result = await User.findById(restaurantInput.owner)
                 .then(user => {
