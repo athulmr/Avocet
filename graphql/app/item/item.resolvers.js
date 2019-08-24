@@ -1,5 +1,5 @@
-const Category = require('../category/category');
-const Item = require('./Item');
+const Category = require('../../../model/Category');
+const Item = require('../../../model/Item');
 
 module.exports = {
     /**

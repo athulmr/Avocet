@@ -1,5 +1,5 @@
 const typeDef = `
-type Owner {
+type User {
     _id: ID
     restaurants: [Restaurant!]
     name: String!
@@ -10,7 +10,7 @@ type Owner {
     sex: String!
 }
 
-input OwnerInput {
+input UserInput {
     name: String
     address: String
     phone: String
@@ -20,21 +20,21 @@ input OwnerInput {
     sex: String
 }
 
-type OwnerOutput {
-    data: Owner
+type UserOutput {
+    data: User
     error: String
 }
 `;
 
 const query = `
 extend type RootQuery {
-owners(owner: OwnerInput): [Owner!]!
+users(user: UserInput): [User!]!
 }
 `;
 
 const mutation = `
 extend type RootMutation {
-createOwner(ownerInput: OwnerInput): OwnerOutput!
+createUser(userInput: UserInput): UserOutput!
 }
 `
 

@@ -1,5 +1,5 @@
-const Restaurant = require('../restaurant/Restaurant');
-const Menu = require('./menu')
+const Restaurant = require('../../../model/Restaurant');
+const Menu = require('../../../model/Menu')
 
 module.exports = {
     /**

@@ -1,5 +1,5 @@
-const Restaurant = require('./Restaurant');
-const Owner = require('../owner/Owner');
+const Restaurant = require('../../../model/Restaurant');
+const User = require('../../../model/User');
 
 module.exports = {
     /**
@@ -12,21 +12,21 @@ module.exports = {
             if (!args) throw new Error("Args are empty, check if you are passing 'variables' or not")
             const restaurantInput = args.restaurantInput;
             
-            const result = await Owner.findById(restaurantInput.owner)
-                .then(owner => {
-                    if (!owner) throw new Error('Owner not found');
+            const result = await User.findById(restaurantInput.owner)
+                .then(user => {
+                    if (!user) throw new Error('User not found');
                     
                     // have to add phone number for finding restaurant(some restaurants may not have email)
                     restaurantInput["owners"] = [];
-                    restaurantInput.owners.push(owner);
+                    restaurantInput.owners.push(user);
                     restaurantInput["addedOn"] = new Date();
                     const restaurant = new Restaurant(restaurantInput);
 
                     return restaurant.save()
                         .then(data => {
                             // Add new restaurant to Owner's restaurant list.               
-                            owner.restaurants.push(data);
-                            owner.save();
+                            user.restaurants.push(data);
+                            user.save();
                             return {
                                 data: [data]
                             };

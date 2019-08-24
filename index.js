@@ -52,7 +52,7 @@ app.get('/', (req, res) =>{
     res.json({'message':'Avocet (Store Management System) Welcomes you :) '}).status(200);
 })
 
-app.use(passportJWT);
+// app.use(passportJWT);
 
 app.use(
     '/graphql',

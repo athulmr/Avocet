@@ -3,7 +3,7 @@ const expect = chai.expect;
 const dotenv = require('dotenv');
 const url = 'http://localhost:3001/'
 const request = require('supertest')(url);
-const Owner = require('../owner/Owner');
+const User = require('../../../model/User');
 const Restaurant = require('./Restaurant');
 const mongoose = require('mongoose');
 const bcrypt = require('bcryptjs');
@@ -35,7 +35,7 @@ describe('restaurant', () => {
         const today = new Date();
         bcrypt.hash('testPass', 12)
             .then(encryptedPass => {
-                Owner.create({
+                User.create({
                         name: "test user",
                         email: testerEmail,
                         phone: testerNumber,
@@ -73,7 +73,7 @@ describe('restaurant', () => {
             // done();
         });
 
-        Owner.deleteMany({
+        User.deleteMany({
                 email: {
                     $in: [testerEmail]
                 }

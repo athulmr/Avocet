@@ -43,8 +43,7 @@ const userSchema = new Schema({
         type: String,
     },
     phone: {
-        type: Number,
-        unique: true
+        type: Number
     },
     addedOn: {
         type: Date

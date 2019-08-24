@@ -172,6 +172,8 @@ module.exports = {
 
   dashboard: async (req, res, next) => {
     console.log('I managed to get here!');
+    console.log('dashboard ',req.user);
+    
     res.json({ 
       secret: "resource",
       methods: req.user.methods

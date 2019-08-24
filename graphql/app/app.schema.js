@@ -1,18 +1,15 @@
 const {
   buildSchema, extendSchema, parse
 } = require('graphql');
-const Owner = require('./owner/owner.typedef');
 const Restaurant = require('./restaurant/restaurant.typedef');
-const Staff = require('./staff/staff.typedef');
 const Menu = require('./menu/menu.typedef');
 const Category = require('./category/category.typedef');
-const Images = require('./images/images.typedef');
 const Item = require('./item/item.typedef');
-const AuthData = require('./auth/authData.typedef');
+const User = require('./user/user.typedef');
 
-const typeDefs = Menu.typeDef + Category.typeDef + Images + Item.typeDef + Owner.typeDef + Restaurant.typeDef + Staff.typeDef + AuthData.typeDef;
-const rootQuery = Menu.query + Category.query + Restaurant.query + Owner.query + Item.query + AuthData.query;
-const rootMutation = Restaurant.mutation + Category.mutation + Menu.mutation + Staff.mutation + Owner.mutation + Item.mutation;
+const typeDefs = User.typeDef + Menu.typeDef + Category.typeDef + Item.typeDef + Restaurant.typeDef;
+const rootQuery = Menu.query + Category.query + Restaurant.query  + Item.query ;
+const rootMutation = Restaurant.mutation + Category.mutation + Menu.mutation +  Item.mutation;
 
 
 let schema = buildSchema(typeDefs + `

@@ -1,5 +1,5 @@
-const Menu = require('../menu/menu');
-const Category = require('./category');
+const Menu = require('../../../model/Menu');
+const Category = require('../../../model/Category');
 
 module.exports = {
     /**

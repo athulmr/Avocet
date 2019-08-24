@@ -3,21 +3,19 @@ type Restaurant {
     _id: ID
     name: String!
     code: String!
-    address: String!
-    phone: [String!]
-    email: [String!]
-    owners: Owner!
-    staffs: [Staff!]
+    address: String
+    phone: [String]
+    email: [String]
+    owners: User!
     menus: [Menu!]
-    img: Images
 }
 
 input RestaurantInput {
     name: String!
     code: String!
-    address: String!
-    phone: String!
-    email: String!
+    address: String
+    phone: String
+    email: String
     owner: ID!
 }
 
