@@ -9,6 +9,9 @@ const cookieParser = require('cookie-parser');
 const graphQlSchema = require('./graphql/app/app.schema');
 const graphQlResolvers = require('./graphql/app/app.resolvers');
 
+const passport = require('passport');
+const passportJWT = passport.authenticate('jwt', { session: false });
+
 const app = express();
 
 const corsOptions = {
@@ -48,6 +51,8 @@ app.use('/users', require('./routes/users.routes'));
 app.get('/', (req, res) =>{
     res.json({'message':'Avocet (Store Management System) Welcomes you :) '}).status(200);
 })
+
+app.use(passportJWT);
 
 app.use(
     '/graphql',
