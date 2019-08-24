@@ -14,7 +14,10 @@ const passportJWT = passport.authenticate('jwt', { session: false });
 
 const app = express();
 
-var whitelist = ['http://localhost:4200', 'https://avocet.app']
+dotenv.config();
+
+var whitelist = process.env.whiteList;
+
 var corsOptions = {
   credentials: true,
   optionsSuccessStatus: 200, // some legacy browsers (IE11, various SmartTVs) choke on 204
@@ -28,8 +31,6 @@ var corsOptions = {
 }
 
 app.use(cors(corsOptions));
-
-dotenv.config();
 
 const PORT = process.env.PORT;
 
