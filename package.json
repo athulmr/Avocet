@@ -6,7 +6,8 @@
   "scripts": {
     "test": "mocha \"./{,!(node_modules)/**/}*.test.js\"",
     "serve": "nodemon index.js",
-    "inspect": "nodemon --inspect index.js"
+    "inspect": "nodemon --inspect index.js",
+    "test-cov": "nyc --reporter=text mocha \"./{,!(node_modules)/**/}*.test.js\""
   },
   "keywords": [
     "Restaurant Management System",

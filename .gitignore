@@ -2,3 +2,4 @@ node_modules
 journals
 .env
 .vscode/settings.json
+.nyc_output
