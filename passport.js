@@ -22,7 +22,7 @@ passport.use(new JwtStrategy({
   passReqToCallback: true
 }, async (req, payload, done) => {
   try {
-    console.log("passport",req,payload)
+    // console.log("passport",req,payload)
     // Find the user specified in token
     const user = await User.findById(payload.sub);
 
@@ -32,7 +32,7 @@ passport.use(new JwtStrategy({
     }
 
     // Otherwise, return the user
-    req.user = user;
+    req.user = user;    
     done(null, user);
   } catch(error) {
     done(error, false);

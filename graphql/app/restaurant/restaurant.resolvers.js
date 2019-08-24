@@ -7,10 +7,12 @@ module.exports = {
      * Tag the Restaurant with Owner and adds the Restaurant to Owners Restaurants List.
      * @param {RestaurantInput} args contains all the necessary details for creating the Restaurant. 
      */
-    createRestaurant: async args => {
+    createRestaurant: async (args, context) => {
         try {
             if (!args) throw new Error("Args are empty, check if you are passing 'variables' or not")
             const restaurantInput = args.restaurantInput;
+
+            restaurantInput.owners = context.user._id;
             
             const result = await User.findById(restaurantInput.owner)
                 .then(user => {
@@ -52,9 +54,11 @@ module.exports = {
             throw err;
         }
     },
-    restaurants: async args => {
+    restaurants: async (args, context) => {
         try {
-            console.log(args.restaurant);
+            // Context will hold all the request context
+            // console.log(args.restaurant, '\n context',context.user._id);
+            args.restaurant.owners = context.user._id;
             const query = JSON.parse(JSON.stringify(args.restaurant));
             console.log(query);
             const restaurants = await Restaurant.find(query)
@@ -71,12 +75,13 @@ module.exports = {
                     return {
                         error: err
                     }
-                    throw new Error("No Restaurant found");
                 });
 
             return restaurants;
         } catch (err) {
-            throw err;
+            throw {
+                error: err
+            }
         }
     }
 }
