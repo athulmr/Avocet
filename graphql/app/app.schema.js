@@ -6,10 +6,12 @@ const Menu = require('./menu/menu.typedef');
 const Category = require('./category/category.typedef');
 const Item = require('./item/item.typedef');
 const User = require('./user/user.typedef');
+const ItemSold = require('./ItemSold/item-sold.typedef')
+const SaleOrder = require('./saleOrder/sale-order.typedef')
 
-const typeDefs = User.typeDef + Menu.typeDef + Category.typeDef + Item.typeDef + Restaurant.typeDef;
-const rootQuery = Menu.query + Category.query + Restaurant.query  + Item.query ;
-const rootMutation = Restaurant.mutation + Category.mutation + Menu.mutation +  Item.mutation;
+const typeDefs = User.typeDef + Menu.typeDef + Category.typeDef + Item.typeDef + Restaurant.typeDef + ItemSold.typeDef + SaleOrder.typeDef;
+const rootQuery = Menu.query + Category.query + Restaurant.query  + Item.query + SaleOrder.query;
+const rootMutation = Restaurant.mutation + Category.mutation + Menu.mutation +  Item.mutation + SaleOrder.mutation;
 
 
 let schema = buildSchema(typeDefs + `
