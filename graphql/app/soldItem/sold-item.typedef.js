@@ -1,5 +1,5 @@
 const typeDef = `
-type ItemSold {
+type SoldItem {
     _id: ID!
     restaurant: ID!
     cart: ID!
@@ -11,7 +11,7 @@ type ItemSold {
     addedOn: String
 }
 
-input ItemSoldInput {
+input SoldItemInput {
     name: String!
     code: String!
     qty: Int!

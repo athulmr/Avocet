@@ -8,9 +8,9 @@ const cartSchema = Schema({
         ref: 'Restaurant',
         require: true
     },
-    itemsSold: [{
+    soldItems: [{
         type: Schema.ObjectId,
-        ref: 'ItemSold'
+        ref: 'SoldItem'
     }],
     addedOn: {
         type: Date,

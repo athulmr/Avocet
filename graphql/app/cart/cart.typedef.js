@@ -2,13 +2,13 @@ const typeDef = `
 type cart {
     _id: ID!
     restaurant: ID!
-    itemsSold: [ItemSold!]
+    soldItems: [SoldItem!]
     addedOn: String
 }
 
 input CartInput {
     restaurant: ID!
-    itemsSold: [ItemSoldInput!]
+    soldItems: [SoldItemInput!]
 }
 
 type CartOutput {

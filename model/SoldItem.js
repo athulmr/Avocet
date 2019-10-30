@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 
 const Schema = mongoose.Schema;
 
-const itemSoldSchema = Schema({
+const soldItemSchema = Schema({
     restaurant: {
         type: Schema.ObjectId,
         ref: 'Restaurant',
@@ -40,4 +40,4 @@ const itemSoldSchema = Schema({
     
 });
 
-module.exports = mongoose.model('ItemSold', itemSoldSchema);
+module.exports = mongoose.model('SoldItem', soldItemSchema);

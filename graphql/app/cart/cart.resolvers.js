@@ -1,5 +1,5 @@
 const Cart = require('../../../model/Cart');
-const ItemSold = require('../../../model/ItemSold');
+const SoldItem = require('../../../model/SoldItem');
 const Restaurant = require('../../../model/Restaurant');
 
 
@@ -12,11 +12,11 @@ module.exports = {
         try {
             if (!args) throw new Error("Args are empty, check if you are passing 'variables' or not")
             const cartInput = args.cart;
-            const itemsSoldInput = args.cart.itemsSold;
+            const soldItemsInput = args.cart.soldItems;
             
-            delete cartInput.itemsSold;
+            delete cartInput.soldItems;
             console.log(cartInput);
-            console.log(itemsSoldInput);
+            console.log(soldItemsInput);
             
             const result = await Restaurant.findById(cartInput.restaurant)
                 .then(restaurant => {
@@ -28,21 +28,21 @@ module.exports = {
 
                     return cart.save()
                         .then(savedCart => {
-                            const itemsSold = new ItemSold();
-                            let itemSoldList = [];
-                            itemsSoldInput.forEach(itemSold => {
-                                itemSold.restaurant = restaurant._id;
-                                itemSold.cart = savedCart._id; 
-                                itemSold.addedOn = savedCart.addedOn;
-                                itemSold.totalCost = itemSold.unitPrice * itemSold.qty; 
-                                itemSoldList.push(itemSold);
+                            const soldItem = new SoldItem();
+                            let soldItemList = [];
+                            soldItemsInput.forEach(soldItem => {
+                                soldItem.restaurant = restaurant._id;
+                                soldItem.cart = savedCart._id; 
+                                soldItem.addedOn = savedCart.addedOn;
+                                soldItem.totalCost = soldItem.unitPrice * soldItem.qty; 
+                                soldItemList.push(soldItem);
                             });
-                            itemsSold.collection.insertMany(itemSoldList, function (err, docs) {
+                            soldItem.collection.insertMany(soldItemList, function (err, docs) {
                                 if (err){ 
                                     return console.error(err);
                                 } else {
                                   console.log("Multiple documents inserted to Collection", docs);
-                                  savedCart.itemsSold = Object.values(docs.insertedIds)
+                                  savedCart.soldItems = Object.values(docs.insertedIds)
                                   console.log('savedSa = >',savedCart);
                                   savedCart.save();
                                 }
