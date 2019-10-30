@@ -8,9 +8,9 @@ const itemSoldSchema = Schema({
         ref: 'Restaurant',
         require: true
     },
-    saleOrder: {
+    cart: {
         type: Schema.ObjectId,
-        ref: 'SaleOrder',
+        ref: 'Cart',
         require: true
     },
     name: {

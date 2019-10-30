@@ -1,31 +1,31 @@
 const typeDef = `
-type SaleOrder {
+type cart {
     _id: ID!
     restaurant: ID!
     itemsSold: [ItemSold!]
     addedOn: String
 }
 
-input SaleOrderInput {
+input CartInput {
     restaurant: ID!
     itemsSold: [ItemSoldInput!]
 }
 
-type SaleOrderOutput {
-    data: [SaleOrder]
+type CartOutput {
+    data: [cart]
     error: String
 }
 `;
 
 const query = `
 extend type RootQuery {
-saleOrders(saleOrder: SaleOrderInput): [RestaurantOutput!]
+carts(cart: CartInput): CartOutput
 }
 `
 
 const mutation =`
 extend type RootMutation {
-createSaleOrder(saleOrder: SaleOrderInput): SaleOrderOutput 
+saveCart(cart: CartInput): CartOutput 
 }
 `;
 

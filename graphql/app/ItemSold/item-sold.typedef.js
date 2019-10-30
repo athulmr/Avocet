@@ -2,7 +2,7 @@ const typeDef = `
 type ItemSold {
     _id: ID!
     restaurant: ID!
-    saleOrder: ID!
+    cart: ID!
     name: String!
     code: String!
     qty: Int!

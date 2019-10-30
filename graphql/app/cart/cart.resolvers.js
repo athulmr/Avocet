@@ -1,39 +1,39 @@
-const SaleOrder = require('../../../model/SaleOrder');
+const Cart = require('../../../model/Cart');
 const ItemSold = require('../../../model/ItemSold');
 const Restaurant = require('../../../model/Restaurant');
 
 
 module.exports = {
     /**
-     * Creates Items and Add them to Menu's items List.
-     * @param {ItemInput} args Contains details about item and menuId.
+     * Saves cart along with the items sold.
+     * @param {cart} args Contains details about cart and items sold.
      */
-    createSaleOrder: async args => {
+    saveCart: async args => {
         try {
             if (!args) throw new Error("Args are empty, check if you are passing 'variables' or not")
-            const saleOrderInput = args.saleOrder;
-            const itemsSoldInput = args.saleOrder.itemsSold;
+            const cartInput = args.cart;
+            const itemsSoldInput = args.cart.itemsSold;
             
-            delete saleOrderInput.itemsSold;
-            console.log(saleOrderInput);
+            delete cartInput.itemsSold;
+            console.log(cartInput);
             console.log(itemsSoldInput);
             
-            const result = await Restaurant.findById(saleOrderInput.restaurant)
+            const result = await Restaurant.findById(cartInput.restaurant)
                 .then(restaurant => {
                     if (!restaurant) throw new Error('Restaurant not found');
                     console.log('In');
 
-                    const saleOrder = new SaleOrder(saleOrderInput);
-                    console.log('saleOrderInput');
+                    const cart = new Cart(cartInput);
+                    console.log('CartInput');
 
-                    return saleOrder.save()
-                        .then(savedSaleOrder => {
+                    return cart.save()
+                        .then(savedCart => {
                             const itemsSold = new ItemSold();
                             let itemSoldList = [];
                             itemsSoldInput.forEach(itemSold => {
                                 itemSold.restaurant = restaurant._id;
-                                itemSold.saleOrder = savedSaleOrder._id; 
-                                itemSold.addedOn = savedSaleOrder.addedOn;
+                                itemSold.cart = savedCart._id; 
+                                itemSold.addedOn = savedCart.addedOn;
                                 itemSold.totalCost = itemSold.unitPrice * itemSold.qty; 
                                 itemSoldList.push(itemSold);
                             });
@@ -42,18 +42,18 @@ module.exports = {
                                     return console.error(err);
                                 } else {
                                   console.log("Multiple documents inserted to Collection", docs);
-                                  savedSaleOrder.itemsSold = Object.values(docs.insertedIds)
-                                  console.log('savedSa = >',savedSaleOrder);
-                                  savedSaleOrder.save();
+                                  savedCart.itemsSold = Object.values(docs.insertedIds)
+                                  console.log('savedSa = >',savedCart);
+                                  savedCart.save();
                                 }
                             });
                             
                             return {
-                                data: [savedSaleOrder]
+                                data: [savedCart]
                             };
                         })
                         .catch(err => {
-                            console.log("saleOrder Unable to save New data to DB", err.message);
+                            console.log("Cart Unable to save New data to DB", err.message);
                             return {
                                 error: err.message
                             };

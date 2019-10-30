@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 
 const Schema = mongoose.Schema;
 
-const saleOrderSchema = Schema({
+const cartSchema = Schema({
     restaurant: {
         type: Schema.ObjectId,
         ref: 'Restaurant',
@@ -19,7 +19,7 @@ const saleOrderSchema = Schema({
     
 });
 
-saleOrderSchema.pre('save', async function (next) {
+cartSchema.pre('save', async function (next) {
     try {
         this.addedOn = new Date();
         next();        
@@ -28,4 +28,4 @@ saleOrderSchema.pre('save', async function (next) {
     }
 })
 
-module.exports = mongoose.model('SaleOrder', saleOrderSchema);
+module.exports = mongoose.model('Cart', cartSchema);
