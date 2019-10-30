@@ -30,7 +30,7 @@ var corsOptions = {
   }
 }
 
-app.use(cors(corsOptions));
+// app.use(cors(corsOptions));
 
 const PORT = process.env.PORT;
 
@@ -64,7 +64,7 @@ app.get('/', (req, res) =>{
 
 app.use(
     '/graphql',
-    passportJWT,
+    
     graphqlHttp({
       schema: graphQlSchema,
       rootValue: graphQlResolvers,

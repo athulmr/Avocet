@@ -7,10 +7,13 @@ type SaleOrder {
 }
 
 input SaleOrderInput {
-    _id: ID!
     restaurant: ID!
     itemsSold: [ItemSoldInput!]
-    addedOn: String
+}
+
+type SaleOrderOutput {
+    data: [SaleOrder]
+    error: String
 }
 `;
 
@@ -22,7 +25,7 @@ saleOrders(saleOrder: SaleOrderInput): [RestaurantOutput!]
 
 const mutation =`
 extend type RootMutation {
-createSaleOrder(saleOrder: SaleOrderInput): SaleOrder 
+createSaleOrder(saleOrder: SaleOrderInput): SaleOrderOutput 
 }
 `;
 

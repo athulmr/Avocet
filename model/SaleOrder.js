@@ -10,8 +10,7 @@ const saleOrderSchema = Schema({
     },
     itemsSold: [{
         type: Schema.ObjectId,
-        ref: 'ItemSold',
-        require: true
+        ref: 'ItemSold'
     }],
     addedOn: {
         type: Date,

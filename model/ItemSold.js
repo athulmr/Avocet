@@ -2,14 +2,14 @@ const mongoose = require('mongoose');
 
 const Schema = mongoose.Schema;
 
-const itemSold = Schema({
+const itemSoldSchema = Schema({
     restaurant: {
-        type: Schema.objectId,
+        type: Schema.ObjectId,
         ref: 'Restaurant',
         require: true
     },
-    SaleOrder: {
-        type: Schema.objectId,
+    saleOrder: {
+        type: Schema.ObjectId,
         ref: 'SaleOrder',
         require: true
     },
@@ -32,8 +32,12 @@ const itemSold = Schema({
     totalCost: {
         type: Number,
         require: true
+    },
+    addedOn: {
+        type: Date,
+        require: true
     }   
     
 });
 
-module.exports = mongoose.model('ItemSold', itemSold);
+module.exports = mongoose.model('ItemSold', itemSoldSchema);
