@@ -74,7 +74,48 @@ module.exports = {
         } catch (err) {
             throw err;
         }
+    },
+
+    /**
+     * Retrieves all the carts based on restaurant code and timeline (default timeline is 7 days)
+     */
+    carts: async args => {
+        try {
+            if (!args) throw new Error("Args are empty, check if you are passing 'variables' or not")
+            const restaurantCode = args.cart.restaurant;
+            const result = await Restaurant.find({code: restaurantCode})
+                .then(restaurant => {
+                    if (!restaurant) throw new Error('Restaurant not found');
+                    
+                    return Cart.find({restaurant: restaurant})
+                        .populate('soldItems')
+                        .then(carts => {
+                            return {
+                                data: carts
+                            };
+                        })
+                        .catch(err => {
+                            console.log("Unable to fetch carts from DB", err.message);
+                            return {
+                                error: err.message
+                            };
+                        });
+                })
+                .catch(err => {
+                    console.log("Error while fetching carts", err);
+                    return {
+                        error: err.message
+                    };
+                });
+
+
+            return result;
+
+        } catch (err) {
+            throw err;
+        }
+
     }
 
-    
+
 }

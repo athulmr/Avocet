@@ -3,6 +3,7 @@ type cart {
     _id: ID!
     restaurant: ID!
     soldItems: [SoldItem!]
+    value: String
     addedOn: String
 }
 
