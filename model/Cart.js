@@ -12,6 +12,7 @@ const cartSchema = Schema({
         type: Schema.ObjectId,
         ref: 'SoldItem'
     }],
+    value: Number,
     addedOn: {
         type: Date,
         require: true

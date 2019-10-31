@@ -30,20 +30,22 @@ module.exports = {
                         .then(savedCart => {
                             const soldItem = new SoldItem();
                             let soldItemList = [];
+                            let cartValue = 0;
                             soldItemsInput.forEach(soldItem => {
                                 soldItem.restaurant = restaurant._id;
                                 soldItem.cart = savedCart._id; 
                                 soldItem.addedOn = savedCart.addedOn;
                                 soldItem.totalCost = soldItem.unitPrice * soldItem.qty; 
                                 soldItemList.push(soldItem);
+                                cartValue += soldItem.totalCost;
                             });
                             soldItem.collection.insertMany(soldItemList, function (err, docs) {
                                 if (err){ 
                                     return console.error(err);
                                 } else {
-                                  console.log("Multiple documents inserted to Collection", docs);
+                                //   console.log("Multiple documents inserted to Collection", docs);
                                   savedCart.soldItems = Object.values(docs.insertedIds)
-                                  console.log('savedSa = >',savedCart);
+                                  savedCart.value = cartValue;
                                   savedCart.save();
                                 }
                             });
