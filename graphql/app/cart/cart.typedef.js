@@ -3,7 +3,7 @@ type cart {
     _id: ID!
     restaurant: ID!
     soldItems: [SoldItem!]
-    value: String
+    value: Float
     addedOn: String
 }
 
