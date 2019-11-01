@@ -4,6 +4,11 @@ const uniqueValidator = require('mongoose-unique-validator');
 const Schema = mongoose.Schema;
 
 const itemSchema = Schema({
+    restaurant: {
+        type: Schema.ObjectId,
+        ref: 'Restaurant',
+        require: true,
+    },
     category: {
         type: Schema.ObjectId,
         ref: 'Category',
@@ -30,17 +35,28 @@ const itemSchema = Schema({
     imgUrl: [String],
     count: Number,
     addedOn: {
-        type: Date,
-        required: true
+        type: Date
     },
     active: {
-        type: Boolean,
-        required: true
+        type: Boolean
     }
 })
 
-itemSchema.index({name:1, category:1}, { unique: true });
-itemSchema.index({code:1, category:1}, { unique: true });
+itemSchema.pre('save', async function (next) {
+    try {
+      // set addedOn date
+      this.addedOn = new Date();
+      this.active = true;
+      this.code = this.code.toUpperCase();
+
+      next();
+    } catch (error) {
+      next(error);
+    }
+  });
+
+itemSchema.index({name:1, restaurant:1}, { unique: true });
+itemSchema.index({code:1, restaurant:1}, { unique: true });
 
 itemSchema.plugin(uniqueValidator);
 

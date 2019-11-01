@@ -21,11 +21,8 @@ module.exports = {
                 throw new Error("Category do not exist")
             });
 
-            // add addedOn property to item
-            item["addedOn"] = new Date();
-            item["active"] = true;
-
             // save the item
+            item.restaurant = category.restaurant;
             const savedItem = await Item.create(item);
 
             // add the saved item to menus already existing list of items
@@ -39,6 +36,8 @@ module.exports = {
                 data: [savedItem],
             };
         } catch (err) {
+            console.log('Error while saving item', err.message);
+            
             return {
                 error: err.message,
             };

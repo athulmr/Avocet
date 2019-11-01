@@ -36,10 +36,25 @@ const restaurantSchema = Schema({
         background: String
     },
     addedOn: {
-        type: Date,
-        required: true
+        type: Date
+    },
+    active: {
+        type: Date
     }
 });
+
+restaurantSchema.pre('save', async function (next) {
+    try {
+      // set addedOn date
+      this.addedOn = new Date();
+      this.active = true;
+      this.code = this.code.toUpperCase();
+
+      next();
+    } catch (error) {
+      next(error);
+    }
+  });
 
 restaurantSchema.index({name:1, address:1}, { unique: true });
 restaurantSchema.index({code:1, owners:1}, { unique: true });

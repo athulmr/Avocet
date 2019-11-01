@@ -11,9 +11,8 @@ module.exports = {
             const categoryInput = args.categoryInput;
             const result = await Menu.findById(categoryInput.menu)
                 .then(menu => {
-                    categoryInput["addedOn"] = new Date();
-                    categoryInput["active"] = true;
                     categoryInput.menu = menu;
+                    categoryInput.restaurant = menu.restaurant;
 
                     const category = new Category(categoryInput);
                     return category.save()
@@ -25,14 +24,14 @@ module.exports = {
                     });
                 })
                 .catch(err => {
-                    console.log("Menu do not exist!")
+                    console.log("Menu do not exist!", err.message)
                     return { error : err.message }
                 });
 
             return result;
 
         } catch (err) {
-            console.log(err.message);
+            console.log("Error While Saving Category", err.message);
             
             return err;
         }
