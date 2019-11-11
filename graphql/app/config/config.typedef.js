@@ -18,16 +18,17 @@ type Discount {
 }
 
 input DiscountInput {
-    code: String!
     percent: Float!
     minOrder: Float
     maxDiscount: Float
 }
 
 input DeliveryInput {
-    name: String
+    code: String
     pkgCharge: Float
-    discount: [DiscountInput]
+    fcpo: Float
+    fcpoMinOrder: Float
+    discounts: [DiscountInput]
 }
 
 input ConfigInput {

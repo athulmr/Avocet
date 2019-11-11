@@ -12,15 +12,16 @@ const configSchema = Schema({
         require: true,
     },
     delivery: [{
-        name: String,
         code: String,
-        discount: [{
-            active: Boolean,
+        pkgCharge: Number,
+        fcpo: String,
+        fcpoMinOrder: String,
+        discounts: [{
             percent: Number,
             minOrder: Number,
-            maxDiscount: Number
+            maxDiscount: Number,
+            active: Boolean
         }],
-        pkgCharge: Number,
         default: Boolean,
         active: Boolean,
     }],

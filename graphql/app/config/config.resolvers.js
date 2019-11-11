@@ -12,14 +12,13 @@ module.exports = {
         try {
             if (!args) throw new Error("Args are empty, check if you are passing 'variables' or not")
             const configInput = args.config;
-           
+
             const result = await Restaurant.findById(configInput.restaurant)
                 .then(restaurant => {
                     if (!restaurant) throw new Error('Restaurant not found');
 
                     // create new config if id not present
                     if(typeof(configInput.id) === 'undefined') {
-
                         const config = new Config(configInput);
                         
                         return config.save()
@@ -63,7 +62,7 @@ module.exports = {
                     }
                 })
                 .catch(err => {
-                    console.log("Restaurant do not Exist",err);
+                    console.log("Unable to save config",err);
                     return {
                         error: err.message
                     };
