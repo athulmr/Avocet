@@ -6,15 +6,20 @@ type Config {
 }
 
 type Delivery {
-    name: String
+    code: String
     pkgCharge: Float
-    discount: [Discount]
+    fcpo: String
+    fcpoMinOrder: String
+    discounts: [Discount]
+    default: Boolean
+    active: Boolean
 }
 
 type Discount {
-    code: String
+    percent: Float
     minOrder: Float
     maxDiscount: Float
+    active: Boolean
 }
 
 input DiscountInput {

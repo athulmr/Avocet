@@ -62,12 +62,16 @@ module.exports = {
             const query = JSON.parse(JSON.stringify(args.restaurant));
             console.log(query);
             const restaurants = await Restaurant.find(query)
+                .populate('config')
                 .populate('menus')
-                .then(data => {
-                    console.log('yep', data);
-
+                .then(restaurants => {
+                    restaurants.forEach(restaurant => {
+                        console.log('config',restaurant.config);
+                        console.log('menus',restaurant.menus);
+                        
+                    })
                     return {
-                        data: data
+                        data: restaurants
                     };
                 }).catch(err => {
                     console.log('nope');

@@ -8,6 +8,7 @@ type Restaurant {
     email: [String]
     owners: User!
     menus: [Menu!]
+    config: [Config!]
 }
 
 input RestaurantInput {
