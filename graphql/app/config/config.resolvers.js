@@ -28,7 +28,7 @@ module.exports = {
                                 return restaurant.save()
                                 .then(()=>{
                                     return {
-                                        data: [savedConfig]
+                                        data: savedConfig
                                     };
                                 });  
                         })
@@ -44,12 +44,15 @@ module.exports = {
                         .then(config => {
                             if (!config) throw new Error('Configuration not found');
                                                         
-                            config.delivery = configInput.delivery
+                            config.delivery = configInput.delivery;
+                            config.gstin = configInput.gstin;
+                            config.cgst = configInput.cgst;
+                            config.sgst = configInput.sgst;
                             return config.save()
                             .then(savedConfig => {
                             
                                 return {
-                                    data: [savedConfig]
+                                    data: savedConfig
                                 };
                             })
                             .catch(err => {

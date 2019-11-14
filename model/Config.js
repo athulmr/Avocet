@@ -14,8 +14,8 @@ const configSchema = Schema({
     delivery: [{
         code: String,
         pkgCharge: Number,
-        fcpo: String,
-        fcpoMinOrder: String,
+        fcpo: Number,
+        fcpoMinOrder: Number,
         discounts: [{
             percent: Number,
             minOrder: Number,
@@ -25,6 +25,9 @@ const configSchema = Schema({
         default: Boolean,
         active: Boolean,
     }],
+    gstin: Number,
+    cgst: Number,
+    sgst: Number,
     addedOn: Date,
     active: Boolean
 });

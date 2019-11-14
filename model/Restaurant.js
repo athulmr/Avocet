@@ -30,10 +30,10 @@ const restaurantSchema = Schema({
         type: Schema.ObjectId,
         ref: 'Menu'
     }],
-    config: [{
+    config: {
         type: Schema.ObjectId,
         ref: 'Config'
-    }],
+    },
     img: {
         logo: String,
         banner: String,

@@ -3,13 +3,16 @@ type Config {
     _id: ID!
     restaurant: ID!
     delivery: [Delivery!]
+    gstin: Float
+    cgst: Float
+    sgst: Float
 }
 
 type Delivery {
     code: String
     pkgCharge: Float
-    fcpo: String
-    fcpoMinOrder: String
+    fcpo: Float
+    fcpoMinOrder: Float
     discounts: [Discount]
     default: Boolean
     active: Boolean
@@ -40,10 +43,13 @@ input ConfigInput {
     id: ID
     restaurant: ID!
     delivery: [DeliveryInput!]
+    gstin: Float
+    cgst: Float
+    sgst: Float
 }
 
 type ConfigOutput {
-    data: [Config]
+    data: Config
     error: String
 }
 `;
