@@ -64,7 +64,7 @@ app.get('/', (req, res) =>{
 
 app.use(
     '/graphql',
-    
+    passportJWT,
     graphqlHttp({
       schema: graphQlSchema,
       rootValue: graphQlResolvers,
