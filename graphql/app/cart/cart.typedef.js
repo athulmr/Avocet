@@ -9,6 +9,8 @@ type cart {
 
 input CartInput {
     restaurant: ID!
+    startDate: String
+    endDate: String
     soldItems: [SoldItemInput!]
 }
 

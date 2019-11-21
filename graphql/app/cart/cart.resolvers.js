@@ -87,9 +87,12 @@ module.exports = {
                 .then(restaurant => {
                     if (!restaurant) throw new Error('Restaurant not found');
                     
-                    return Cart.find({restaurant: restaurant})
+                    return Cart.find({restaurant: restaurantCode})
                         .populate('soldItems')
+                        .sort({'addedOn': -1})
+                        .limit(100)
                         .then(carts => {
+                            console.log("Unable to fetch carts from DB", carts)
                             return {
                                 data: carts
                             };
