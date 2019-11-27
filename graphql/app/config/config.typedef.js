@@ -29,6 +29,8 @@ input DiscountInput {
     percent: Float!
     minOrder: Float
     maxDiscount: Float
+    active: Boolean
+    default: Boolean
 }
 
 input DeliveryInput {
@@ -36,6 +38,8 @@ input DeliveryInput {
     pkgCharge: Float
     fcpo: Float
     fcpoMinOrder: Float
+    active: Boolean
+    default: Boolean
     discounts: [DiscountInput]
 }
 

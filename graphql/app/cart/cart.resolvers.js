@@ -1,6 +1,7 @@
 const Cart = require('../../../model/Cart');
 const SoldItem = require('../../../model/SoldItem');
 const Restaurant = require('../../../model/Restaurant');
+const constants = require('../../../constants/constants');
 
 
 module.exports = {
@@ -10,22 +11,18 @@ module.exports = {
      */
     saveCart: async args => {
         try {
-            if (!args) throw new Error("Args are empty, check if you are passing 'variables' or not")
+            if (!args) throw new Error(constants.ERROR_EMPTY_ARGS)
             const cartInput = args.cart;
             const soldItemsInput = args.cart.soldItems;
             
             delete cartInput.soldItems;
-            console.log(cartInput);
-            console.log(soldItemsInput);
+            console.log('saveCart cartInput', cartInput);
+            console.log('saveCart soldItemsInput', soldItemsInput);
             
             const result = await Restaurant.findById(cartInput.restaurant)
                 .then(restaurant => {
-                    if (!restaurant) throw new Error('Restaurant not found');
-                    console.log('In');
-
+                    if (!restaurant) throw new Error(constants.ERROR_RESTAURANT_NOT_FOUND);
                     const cart = new Cart(cartInput);
-                    console.log('CartInput');
-
                     return cart.save()
                         .then(savedCart => {
                             const soldItem = new SoldItem();
@@ -41,38 +38,34 @@ module.exports = {
                             });
                             soldItem.collection.insertMany(soldItemList, function (err, docs) {
                                 if (err){ 
-                                    return console.error(err);
+                                    return Error(err);
                                 } else {
-                                //   console.log("Multiple documents inserted to Collection", docs);
                                   savedCart.soldItems = Object.values(docs.insertedIds)
                                   savedCart.value = cartValue;
                                   savedCart.save();
                                 }
                             });
+                            // console.log('savedCart', savedCart);
                             
                             return {
                                 data: [savedCart]
                             };
                         })
                         .catch(err => {
-                            console.log("Cart Unable to save New data to DB", err.message);
-                            return {
-                                error: err.message
-                            };
+                            console.log(constants.ERROR_WHILE_SAVING_CART, err.message);
+                            throw err;
                         });
                 })
                 .catch(err => {
-                    console.log("Restaurant do not Exist",err);
-                    return {
-                        error: err.message
-                    };
+                    console.error(constants.ERROR_RESTAURANT_NOT_FOUND,err.message);
+                    throw Error(constants.ERROR_RESTAURANT_NOT_FOUND);
                 });
 
 
             return result;
 
         } catch (err) {
-            throw err;
+            throw Error(constants.ERROR_WHILE_SAVING_CART +' '+ err.message);
         }
     },
 
@@ -81,31 +74,30 @@ module.exports = {
      */
     carts: async args => {
         try {
-            if (!args) throw new Error("Args are empty, check if you are passing 'variables' or not")
+            if (!args) throw new Error(constants.ERROR_EMPTY_ARGS);
             const restaurantCode = args.cart.restaurant;
             const result = await Restaurant.find({code: restaurantCode})
                 .then(restaurant => {
-                    if (!restaurant) throw new Error('Restaurant not found');
+                    if (!restaurant) throw new Error(constants.ERROR_RESTAURANT_NOT_FOUND);
                     
-                    return Cart.find({restaurant: restaurantCode})
+                    return Cart.find({restaurant: restaurant})
                         .populate('soldItems')
                         .sort({'addedOn': -1})
                         .limit(100)
                         .then(carts => {
-                            console.log("Unable to fetch carts from DB", carts)
                             return {
                                 data: carts
                             };
                         })
                         .catch(err => {
-                            console.log("Unable to fetch carts from DB", err.message);
+                            console.log(constants.ERROR_WHILE_FETCHING_CART, err.message);
                             return {
                                 error: err.message
                             };
                         });
                 })
                 .catch(err => {
-                    console.log("Error while fetching carts", err);
+                    console.log(constants.ERROR_WHILE_FETCHING_CART, err);
                     return {
                         error: err.message
                     };

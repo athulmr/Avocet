@@ -11,6 +11,8 @@ input CartInput {
     restaurant: ID!
     startDate: String
     endDate: String
+    discount: Float
+    delivery: DeliveryInput
     soldItems: [SoldItemInput!]
 }
 
