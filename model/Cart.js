@@ -12,6 +12,17 @@ const cartSchema = Schema({
         type: Schema.ObjectId,
         ref: 'SoldItem'
     }],
+    delivery: {
+        code: String,
+        pkgCharge: Number,
+        fcpo: Number,
+        fcpoMinOrder: Number,
+        discounts: [{
+            percent: Number,
+            minOrder: Number,
+            maxDiscount: Number,
+        }],
+    },
     value: Number,
     addedOn: {
         type: Date,
