@@ -1,5 +1,6 @@
 const Category = require('../../../model/Category');
 const Item = require('../../../model/Item');
+const Restaurant = require('../../../model/Restaurant');
 
 module.exports = {
     /**
@@ -61,13 +62,21 @@ module.exports = {
                     $options: 'i'
                 };
             }
-            const query = JSON.parse(JSON.stringify(args.item));
-            const itemList = await Item.find(query);
+            const restaurantId = args.item.restaurant;
+            const itemList = await Restaurant.findById(restaurantId)
+            .then(restaurant => {
+                console.log('found restaurant', restaurant.name);
 
-            if (!itemList) {
-                throw new Error("No Item found");
-            }
+                return Item.find({restaurant})
+                .then(items => {
+                    console.log('items ', items);
+                    
+                    return items;
+                });
+            })
 
+            console.log('itemList', itemList);
+            
             return itemList;
         } catch (err) {
             return err;

@@ -18,7 +18,8 @@ type ItemDeleteStatus {
 }
 
 input ItemQuery {
-    category: ID!
+    category: ID
+    restaurant: ID
     name: String
     code: String
     desc: String
