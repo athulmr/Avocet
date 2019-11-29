@@ -75,32 +75,41 @@ module.exports = {
     carts: async args => {
         try {
             if (!args) throw new Error(constants.ERROR_EMPTY_ARGS);
+            console.log('carts', args);
+            
             const restaurantCode = args.cart.restaurant;
             const result = await Restaurant.find({code: restaurantCode})
                 .then(restaurant => {
                     if (!restaurant) throw new Error(constants.ERROR_RESTAURANT_NOT_FOUND);
+                    console.log('carts rest', restaurant);
+                    var options = {
+                        sort:     { 'addedOn': -1 },
+                        populate: 'soldItems',
+                        lean:     true,
+                        offset:   20, 
+                        limit:    10
+                    };
                     
-                    return Cart.find({restaurant: restaurant})
-                        .populate('soldItems')
-                        .sort({'addedOn': -1})
-                        .limit(100)
-                        .then(carts => {
+                    return Cart.paginate({restaurant: restaurant}, { offset: 20, limit: 3, populate: 'soldItems' })
+                        .then(response => {
+                            console.log(response);
+                            
                             return {
-                                data: carts
-                            };
+                                    carts: response.docs,
+                                    limit: response.limit,
+                                    total: response.total,
+                                    offset: response.offset
+                                
+                            }
                         })
                         .catch(err => {
                             console.log(constants.ERROR_WHILE_FETCHING_CART, err.message);
-                            return {
-                                error: err.message
-                            };
+                            throw err
                         });
                 })
                 .catch(err => {
                     console.log(constants.ERROR_WHILE_FETCHING_CART, err);
-                    return {
-                        error: err.message
-                    };
+                    throw err;
                 });
 
 

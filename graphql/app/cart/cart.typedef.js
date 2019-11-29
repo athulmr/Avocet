@@ -17,8 +17,10 @@ input CartInput {
 }
 
 type CartOutput {
-    data: [cart]
-    error: String
+    carts: [cart]
+    total: Float
+    limit: Float
+    offset: Float
 }
 `;
 

@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const mongoosePaginate = require('mongoose-paginate');
 
 const Schema = mongoose.Schema;
 
@@ -31,6 +32,8 @@ const cartSchema = Schema({
     
 });
 
+cartSchema.plugin(mongoosePaginate);
+
 cartSchema.pre('save', async function (next) {
     try {
         this.addedOn = new Date();
@@ -38,6 +41,6 @@ cartSchema.pre('save', async function (next) {
     } catch (error) {
         next(error);
     }
-})
+});
 
 module.exports = mongoose.model('Cart', cartSchema);
