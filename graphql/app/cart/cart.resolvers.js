@@ -76,8 +76,15 @@ module.exports = {
         try {
             if (!args) throw new Error(constants.ERROR_EMPTY_ARGS);
             console.log('carts', args);
+            let limit = 20;
+            let offset = 0;
             
             const restaurantCode = args.cart.restaurant;
+            if (typeof args.cart.pageInfo !== 'undefined') {
+                if (typeof args.cart.pageInfo.offset !== 'undefined') offset = args.cart.pageInfo.offset;
+                if (typeof args.cart.pageInfo.limit !== 'undefined') limit = args.cart.pageInfo.limit;
+            }
+
             const result = await Restaurant.find({code: restaurantCode})
                 .then(restaurant => {
                     if (!restaurant) throw new Error(constants.ERROR_RESTAURANT_NOT_FOUND);
@@ -86,19 +93,21 @@ module.exports = {
                         sort:     { 'addedOn': -1 },
                         populate: 'soldItems',
                         lean:     true,
-                        offset:   20, 
-                        limit:    10
+                        offset, 
+                        limit
                     };
                     
-                    return Cart.paginate({restaurant: restaurant}, { offset: 20, limit: 3, populate: 'soldItems' })
+                    return Cart.paginate({restaurant: restaurant}, options)
                         .then(response => {
-                            console.log(response);
+                            console.log('carts response -------', response);
                             
                             return {
-                                    carts: response.docs,
-                                    limit: response.limit,
-                                    total: response.total,
-                                    offset: response.offset
+                                    data: response.docs,
+                                    pageInfo: {
+                                        limit: response.limit,
+                                        total: response.total,
+                                        offset: response.offset
+                                    }
                                 
                             }
                         })

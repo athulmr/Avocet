@@ -3,6 +3,7 @@ type cart {
     _id: ID!
     restaurant: ID!
     soldItems: [SoldItem!]
+    delivery: Delivery
     value: Float
     addedOn: String
 }
@@ -14,13 +15,23 @@ input CartInput {
     discount: Float
     delivery: DeliveryInput
     soldItems: [SoldItemInput!]
+    pageInfo: PageInfo  
+}
+
+input PageInfo {
+    limit: Float
+    offset: Float
+}
+
+type PageInfoOutput {
+    limit: Float
+    offset: Float
+    total: Float
 }
 
 type CartOutput {
-    carts: [cart]
-    total: Float
-    limit: Float
-    offset: Float
+    data: [cart]
+    pageInfo: PageInfoOutput
 }
 `;
 
