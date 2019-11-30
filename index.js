@@ -57,7 +57,7 @@ app.use(logger);
 app.use('/users', require('./routes/users.routes'));
 
 app.get('/', (req, res) =>{
-    res.json({'message':'Avocet (Store Management System) Welcomes you :) '}).status(200);
+    res.json({'message':'Avocet Welcomes you :) Last updated at Nov 30 2019'}).status(200);
 })
 
 // app.use();
