@@ -177,9 +177,18 @@ passport.use(new LocalStrategy({
     if (!isMatch) {
       return done(null, false);
     }
+
+    // remove password details being set to ui
+    console.log(user.local);
+    const userDetails = { 
+      _id: user._id,
+      email: user.local.email,
+      name: user.name,
+      restaurants: user.restaurants
+    }
   
     // Otherwise, return the user
-    done(null, user);
+    done(null, userDetails);
   } catch(error) {
     done(error, false);
   }

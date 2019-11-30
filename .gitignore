@@ -3,3 +3,4 @@ journals
 .env
 .vscode/settings.json
 .nyc_output
+*.sh

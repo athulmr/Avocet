@@ -12,12 +12,9 @@ type User {
 
 input UserInput {
     name: String
-    address: String
     phone: String
     email: String
     pwd: String
-    dob: String
-    sex: String
 }
 
 type UserOutput {

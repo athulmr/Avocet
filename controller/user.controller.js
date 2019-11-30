@@ -3,17 +3,25 @@ const User = require('../model/User');
 const { JWT_SECRET } = require('../config');
 
 signToken = user => {
-  return JWT.sign({
+  console.log('signToken', user);
+  
+  const token = JWT.sign({
     iss: 'AvocetApp',
-    sub: user.id,
+    sub: user._id,
     iat: new Date().getTime(), // current time
     exp: new Date().setDate(new Date().getDate() + 1) // current time + 1 day ahead
   }, JWT_SECRET);
+  return {
+    token,
+    user
+  }
 }
 
 module.exports = {
   signUp: async (req, res, next) => {
-    const { email, password } = req.value.body;
+    const { name, email, password } = req.value.body;
+    console.log('sign up');
+    
 
     // Check if there is a user with the same email
     let foundUser = await User.findOne({ "local.email": email });
@@ -37,12 +45,12 @@ module.exports = {
       }
       await foundUser.save()
       // Generate the token
-      const token = signToken(foundUser);
+      const signed = signToken(foundUser);
       // Respond with token
-      res.cookie('access_token', token, {
+      res.cookie('access_token', signed.token, {
         httpOnly: true
       });
-      res.status(200).json({ success: true });
+      res.status(200).json({ success: true, user: signed.user });
     }
 
     // Is there a Google account with the same email?
@@ -67,27 +75,35 @@ module.exports = {
       local: {
         email: email, 
         password: password
-      }
+      },
+      name
     });
 
-    await newUser.save();
+    const savedUser = await newUser.save();
 
+    // Removing cred from result
+    const userDetails = { 
+      _id: savedUser._id,
+      email: savedUser.local.email,
+      name: savedUser.name,
+      restaurants: savedUser.restaurants
+    }
     // Generate the token
-    const token = signToken(newUser);
+    const signed = signToken(userDetails);
     // Send a cookie containing JWT
-    res.cookie('access_token', token, {
+    res.cookie('access_token', signed.token, {
       httpOnly: true
     });
-    res.status(200).json({ success: true });
+    res.status(200).json({ success: true, user: signed.user });
   },
 
   signIn: async (req, res, next) => {
     // Generate token
-    const token = signToken(req.user);
-    res.cookie('access_token', token, {
+    const signed = signToken(req.user);
+    res.cookie('access_token', signed.token, {
       httpOnly: true
     });
-    res.status(200).json({ success: true });
+    res.status(200).json({ success: true, user : signed.user});
   },
 
   signOut: async (req, res, next) => {
@@ -98,8 +114,8 @@ module.exports = {
 
   googleOAuth: async (req, res, next) => {
     // Generate token
-    const token = signToken(req.user);
-    res.cookie('access_token', token, {
+    const signed = signToken(req.user);
+    res.cookie('access_token', signed.token, {
       httpOnly: true
     });
     res.status(200).json({ success: true });
@@ -135,8 +151,8 @@ module.exports = {
 
   facebookOAuth: async (req, res, next) => {
     // Generate token
-    const token = signToken(req.user);
-    res.cookie('access_token', token, {
+    const signed = signToken(req.user);
+    res.cookie('access_token', signed.token, {
       httpOnly: true
     });
     res.status(200).json({ success: true });
@@ -181,7 +197,13 @@ module.exports = {
   },
 
   checkAuth: async (req, res, next) => {
-    console.log('I managed to get here!');
-    res.json({ success: true });
+    // console.log('I managed to get here!', req);
+    const userDetails = { 
+      _id: req.user._id,
+      email: req.user.local.email,
+      name: req.user.name,
+      restaurants: req.user.restaurants
+    }
+    res.json({ success: true, user: userDetails });
   }
 }

@@ -61,7 +61,7 @@ restaurantSchema.pre('save', async function (next) {
   });
 
 restaurantSchema.index({name:1, address:1}, { unique: true });
-restaurantSchema.index({code:1, owners:1}, { unique: true });
+restaurantSchema.index({code:1}, { unique: true });
 
 
 module.exports = mongoose.model('Restaurant', restaurantSchema);
