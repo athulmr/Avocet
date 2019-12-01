@@ -18,6 +18,13 @@ input CartInput {
     pageInfo: PageInfo  
 }
 
+input CartHistoryInput {
+    restaurantCodes: [String]
+    startDate: String
+    endDate: String
+    pageInfo: PageInfo  
+}
+
 input PageInfo {
     limit: Float
     offset: Float
@@ -37,7 +44,7 @@ type CartOutput {
 
 const query = `
 extend type RootQuery {
-carts(cart: CartInput): CartOutput
+carts(cart: CartHistoryInput): CartOutput
 }
 `
 

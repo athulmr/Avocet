@@ -79,13 +79,13 @@ module.exports = {
             let limit = 20;
             let offset = 0;
             
-            const restaurantCode = args.cart.restaurant;
+            const restaurantCodes = args.cart.restaurantCodes;
             if (typeof args.cart.pageInfo !== 'undefined') {
                 if (typeof args.cart.pageInfo.offset !== 'undefined') offset = args.cart.pageInfo.offset;
                 if (typeof args.cart.pageInfo.limit !== 'undefined') limit = args.cart.pageInfo.limit;
             }
 
-            const result = await Restaurant.find({code: restaurantCode})
+            const result = await Restaurant.find({code: { $in: restaurantCodes}})
                 .then(restaurant => {
                     if (!restaurant) throw new Error(constants.ERROR_RESTAURANT_NOT_FOUND);
                     console.log('carts rest', restaurant);
