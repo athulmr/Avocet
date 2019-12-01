@@ -5,6 +5,7 @@ const categoryResolver = require('./category/category.resolvers');
 const itemResolver = require('./item/item.resolvers');
 const cartResolver = require('./cart/cart.resolvers');
 const configResolver = require('./config/config.resolvers');
+const insightsResolver = require('./insight/insight.resolvers');
 
 const rootResolver = {
   ...restaurantResolver,
@@ -12,7 +13,8 @@ const rootResolver = {
   ...categoryResolver,
   ...itemResolver,
   ...cartResolver,
-  ...configResolver
+  ...configResolver,
+  ...insightsResolver
 };
 
 module.exports = rootResolver;

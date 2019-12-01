@@ -99,8 +99,6 @@ module.exports = {
                     
                     return Cart.paginate({restaurant: restaurant}, options)
                         .then(response => {
-                            console.log('carts response -------', response);
-                            
                             return {
                                     data: response.docs,
                                     pageInfo: {
@@ -108,7 +106,6 @@ module.exports = {
                                         total: response.total,
                                         offset: response.offset
                                     }
-                                
                             }
                         })
                         .catch(err => {

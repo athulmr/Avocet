@@ -9,9 +9,10 @@ const User = require('./user/user.typedef');
 const SoldItem = require('./soldItem/sold-item.typedef');
 const Cart = require('./cart/cart.typedef');
 const Config = require('./config/config.typedef');
+const Insight = require('./insight/insight.typedef');
 
-const typeDefs = User.typeDef + Menu.typeDef + Category.typeDef + Item.typeDef + Restaurant.typeDef + SoldItem.typeDef + Cart.typeDef + Config.typeDef;
-const rootQuery = Menu.query + Category.query + Restaurant.query  + Item.query + Cart.query + Config.query;
+const typeDefs = User.typeDef + Menu.typeDef + Category.typeDef + Item.typeDef + Restaurant.typeDef + SoldItem.typeDef + Cart.typeDef + Config.typeDef + Insight.typeDef;
+const rootQuery = Menu.query + Category.query + Restaurant.query  + Item.query + Cart.query + Config.query + Insight.query;
 const rootMutation = Restaurant.mutation + Category.mutation + Menu.mutation +  Item.mutation + Cart.mutation + Config.mutation;
 
 
