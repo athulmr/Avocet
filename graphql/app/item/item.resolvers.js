@@ -24,24 +24,22 @@ module.exports = {
 
             // save the item
             item.restaurant = category.restaurant;
-            const savedItem = await Item.create(item);
+            const savedItem = await Item.create(item)
+            .then(savedItem => {
+                console.log('item saved');
+                
+                category.items.push(savedItem);
+                return category.save()
+                .then(()=>{
+                    console.log('item added to category', savedItem);
+                    return savedItem;
+                })
+            });
 
-            // add the saved item to menus already existing list of items
-            category.items.push(savedItem);
-            await category.save();
-
-            console.log('result: ', savedItem);
-
-
-            return {
-                data: [savedItem],
-            };
-        } catch (err) {
-            console.log('Error while saving item', err.message);
+            return savedItem;
             
-            return {
-                error: err.message,
-            };
+        } catch (err) {
+            throw err;
         }
     },
 

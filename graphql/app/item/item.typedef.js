@@ -7,6 +7,7 @@ type Item {
     desc: String
     category: [String!]!
     price: Float!
+    pkgChrg: Float
     imgUrl: [String!]
     count: Int
     addedOn: String
@@ -33,14 +34,10 @@ input ItemInput {
     name: String!
     code: String!
     price: Float!
+    pkgChrg: Float!
     desc: String
     imgUrl: [String!]
     count: Int
-}
-
-type ItemOut {
-    data: [Item]
-    error: String
 }
 `;
 
@@ -52,7 +49,7 @@ extend type RootQuery {
 
 const mutation = `
 extend type RootMutation {
-    createItem(itemInput: ItemInput): ItemOut!
+    createItem(itemInput: ItemInput): Item!
     deleteItem(id: String): ItemDeleteStatus!
 }
 `

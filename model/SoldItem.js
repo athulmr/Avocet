@@ -29,6 +29,10 @@ const soldItemSchema = Schema({
         type: Number,
         require: true
     },
+    unitPkgChrg: {
+        type: Number,
+        require: true
+    },
     totalCost: {
         type: Number,
         require: true

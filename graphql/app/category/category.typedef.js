@@ -3,6 +3,7 @@ type Category {
     _id: ID!
     menu: Menu!
     name: String!
+    pkgChrg: Float
     items: [Item!]
     active: Boolean!
 }
@@ -10,6 +11,7 @@ type Category {
 input CategoryInput {
     menu: ID!
     name: String!
+    pkgChrg: Float!
 }
 
 input CategoryQuery {

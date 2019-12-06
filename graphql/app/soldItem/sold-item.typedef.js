@@ -6,8 +6,9 @@ type SoldItem {
     name: String!
     code: String!
     qty: Int!
-    unitPrice: Int!
-    totalCost: Int!
+    unitPrice: Float!
+    unitPkgChrg: Float!
+    totalCost: Float!
     addedOn: String
 }
 
@@ -15,7 +16,8 @@ input SoldItemInput {
     name: String!
     code: String!
     qty: Int!
-    unitPrice: Int!
+    unitPrice: Float!
+    unitPkgChrg: Float!
 }
 `;
 

@@ -21,6 +21,9 @@ const categorySchema = Schema({
         type: String,
         required: true,
     },
+    pkgChrg: {
+        type: Number
+    },
     addedOn: {
         type: Date
     },

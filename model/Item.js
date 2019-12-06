@@ -32,6 +32,9 @@ const itemSchema = Schema({
         type: Number,
         required: true
     },
+    pkgChrg: {
+        type: Number
+    },
     imgUrl: [String],
     count: Number,
     addedOn: {
