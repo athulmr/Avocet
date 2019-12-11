@@ -20,12 +20,14 @@ module.exports = {
                 .then(restaurant => {
                     if (!restaurant) throw new Error(constants.ERROR_RESTAURANT_NOT_FOUND);
                     return Cart.find({restaurant: restaurant})
+                    .populate('soldItems')
                     .then( carts => {
+                        // console.log('insights' ,carts);
                         const insights = helpers.generateInsight(carts);
-                        // console.log(insights);
                        return {
                            earnings: insights.earnings,
-                           orders: insights.orders
+                           orders: insights.orders,
+                           items: insights.itemInsights
                        }
                     })
 

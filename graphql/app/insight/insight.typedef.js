@@ -2,7 +2,8 @@ const typeDef = `
 type insights {
     earnings: earnings
     orders: orders
-    performance: performance    
+    performance: performance
+    items: [ItemInsight]
 }
 
 type earnings {
@@ -24,6 +25,17 @@ type performance {
     cOrderCount: Float
     pAOV: Float
     pOrderCount: Float
+}
+
+type ItemInsight {
+    code: String
+    sold: Float
+    priceFreq: [PriceFreq]
+}
+
+type PriceFreq  {
+    price: Float,
+    freq: Int
 }
 
 input InsightInput {

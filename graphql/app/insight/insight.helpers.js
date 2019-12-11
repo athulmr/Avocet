@@ -42,16 +42,19 @@ module.exports = {
             thisMonth: 0
         }
 
+        const itemInsightMap = new Map();
+
         carts.forEach(cart => {
-            if (+utils.dateDifference(cart.addedOn, today) === 0) {
+            let dateDiff = utils.dateDifference(cart.addedOn, today);
+            if (+dateDiff === 0) {
                 earnings.today += utils.applyDiscount(cart.value, cart.delivery.discounts);
                 orders.today++;
             }
-            if (+utils.dateDifference(cart.addedOn, today) === 1) {
+            if (+dateDiff === 1) {
                 earnings.yesterday += utils.applyDiscount(cart.value, cart.delivery.discounts);
                 orders.yesterday++;
             }
-            if (+utils.dateDifference(cart.addedOn, today) <= 7) {
+            if (+dateDiff <= 7) {
                 earnings.last7days += utils.applyDiscount(cart.value, cart.delivery.discounts);
                 orders.last7days++;
             }
@@ -59,8 +62,23 @@ module.exports = {
                 earnings.thisMonth += utils.applyDiscount(cart.value, cart.delivery.discounts);
                 orders.thisMonth++;
             }
-        })
-        return { earnings, orders };
+            cart.soldItems.forEach( item => {
+                if (!itemInsightMap.has(item.code)) {
+                    itemInsightMap.set(item.code, item.qty)
+                } else {
+                    itemInsightMap.set(item.code, itemInsightMap.get(item.code) + item.qty);
+                }
+            });
+        });
+
+        const itemInsights = [];
+
+        itemInsightMap.forEach((value, key, map) => {
+            itemInsights.push({code: key, sold: value});
+            
+        });
+        
+        return { earnings, orders, itemInsights };
 
 
     }
