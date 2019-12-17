@@ -7,7 +7,8 @@
     "test": "mocha \"./{,!(node_modules)/**/}*.test.js\"",
     "serve": "nodemon index.js",
     "inspect": "nodemon --inspect index.js",
-    "test-cov": "nyc --reporter=text mocha \"./{,!(node_modules)/**/}*.test.js\""
+    "test-cov": "nyc --reporter=text mocha \"./{,!(node_modules)/**/}*.test.js\"",
+    "postinstall": "node version.js"
   },
   "keywords": [
     "Restaurant Management System",
@@ -32,15 +33,19 @@
     "mongoose-unique-validator": "^2.0.2",
     "passport": "^0.4.0",
     "passport-facebook-token": "^3.3.0",
+    "passport-google-oauth2": "^0.2.0",
     "passport-google-plus-token": "^2.1.0",
     "passport-jwt": "^4.0.0",
     "passport-local": "^1.0.0"
   },
   "devDependencies": {
     "chai": "^4.2.0",
+    "fs-extra": "^8.1.0",
+    "git-describe": "^4.0.4",
     "mocha": "^6.2.0",
     "nodemon": "^1.18.10",
     "nyc": "^14.1.1",
+    "package.json": "^2.0.1",
     "supertest": "^4.0.2"
   }
 }

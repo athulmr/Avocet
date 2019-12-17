@@ -35,6 +35,9 @@ const userSchema = new Schema({
             lowercase: true
         }
     },
+    picture : {
+      type: String
+    },
     restaurants: {
         type: [Schema.ObjectId],
         ref: 'Restaurant',

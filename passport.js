@@ -1,8 +1,7 @@
 const passport = require('passport');
 const JwtStrategy = require('passport-jwt').Strategy;
-const { ExtractJwt } = require('passport-jwt');
 const LocalStrategy = require('passport-local').Strategy;
-const GooglePlusTokenStrategy = require('passport-google-plus-token');
+const GoogleStrategy = require( 'passport-google-oauth2' ).Strategy;
 const FacebookTokenStrategy = require('passport-facebook-token');
 const config = require('./config');
 const User = require('./model/User');
@@ -40,21 +39,22 @@ passport.use(new JwtStrategy({
 }));
 
 // Google OAuth Strategy
-passport.use('googleToken', new GooglePlusTokenStrategy({
+passport.use('google', new GoogleStrategy({
   clientID: config.oauth.google.clientID,
   clientSecret: config.oauth.google.clientSecret,
+  callbackURL: "http://localhost:3001/users/oauth/google/callback",
   passReqToCallback: true,
+  scope: ['profile', 'email']
 }, async (req, accessToken, refreshToken, profile, done) => {
+
   try {
     // Could get accessed in two ways:
     // 1) When registering for the first time
     // 2) When linking account to the existing one
+    console.log(profile);
+    
 
     // Should have full user profile over here
-    console.log('profile', profile);
-    console.log('accessToken', accessToken);
-    console.log('refreshToken', refreshToken);
-
     if (req.user) {
       // We're already logged in, time for linking account!
       // Add Google's data to an existing account
@@ -76,16 +76,20 @@ passport.use('googleToken', new GooglePlusTokenStrategy({
       existingUser = await User.findOne({ "local.email": profile.emails[0].value })
       if (existingUser) {
         // We want to merge google's data with local auth
+        existingUser.name = profile.displayName,
+        existingUser.picture = profile.picture,
         existingUser.methods.push('google')
         existingUser.google = {
           id: profile.id,
           email: profile.emails[0].value
         }
-        await existingUser.save()
-        return done(null, existingUser);
+        const response = await existingUser.save()
+        return done(null, response);
       }
 
       const newUser = new User({
+        name: profile.displayName,
+        picture: profile.picture,
         methods: ['google'],
         google: {
           id: profile.id,
@@ -94,7 +98,7 @@ passport.use('googleToken', new GooglePlusTokenStrategy({
       });
   
       await newUser.save();
-      done(null, newUser);
+      done(null, {user: newUser});
     }
   } catch(error) {
     done(error, false, error.message);

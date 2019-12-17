@@ -8,6 +8,7 @@ const cookieParser = require('cookie-parser');
 
 const graphQlSchema = require('./graphql/app/app.schema');
 const graphQlResolvers = require('./graphql/app/app.resolvers');
+const version = require('./constants/version');
 
 const passport = require('passport');
 const passportJWT = passport.authenticate('jwt', { session: false });
@@ -16,9 +17,21 @@ const app = express();
 
 dotenv.config();
 
-var whitelist = process.env.whiteList;
+const whitelist = process.env.whiteList;
 
-var corsOptions = {
+const corsOptions = {
+  credentials: true,
+  optionsSuccessStatus: 200, // some legacy browsers (IE11, various SmartTVs) choke on 204
+  origin: function (origin, callback) {
+    if (whitelist.indexOf(origin) !== -1) {
+      callback(null, true)
+    } else {
+      callback(null, true)
+    }
+  }
+}
+
+const corsOptionsGraphql = {
   credentials: true,
   optionsSuccessStatus: 200, // some legacy browsers (IE11, various SmartTVs) choke on 204
   origin: function (origin, callback) {
@@ -43,7 +56,7 @@ mongoose.connect(process.env.MONGODB_URI, {
 
 // Logger Middleware
 const logger = (req, res, next) => {
-    console.log(req.method,req.path,'\n',JSON.stringify(req.body),'\n', JSON.stringify(req.cookies),'\n');
+    console.log(req.method,req.path,'\n Body',JSON.stringify(req.body),'\n Cookies', JSON.stringify(req.cookies),'\n');
     next();
 }
 
@@ -53,14 +66,15 @@ app.use(bodyParser.urlencoded({
 app.use(bodyParser.json());
 app.use(cookieParser())
 app.use(logger);
-// Routes
 app.use('/users', require('./routes/users.routes'));
 
 app.get('/', (req, res) =>{
-    res.json({'message':'Avocet Welcomes you :) Last updated at Nov 30 2019'}).status(200);
+    res.json({'message':'Avocet API version:' + version.VERSION.semverString}).status(200);
 })
 
 // app.use();
+
+app.use(cors(corsOptionsGraphql));
 
 app.use(
     '/graphql',

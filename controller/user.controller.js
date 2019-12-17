@@ -52,22 +52,6 @@ module.exports = {
       });
       res.status(200).json({ success: true, user: signed.user });
     }
-
-    // Is there a Google account with the same email?
-    // foundUser = await User.findOne({ "facebook.email": email });
-    // if (foundUser) {
-    //   // Let's merge them?
-    //   foundUser.methods.push('local')
-    //   foundUser.local = {
-    //     email: email, 
-    //     password: password
-    //   }
-    //   await foundUser.save()
-    //   // Generate the token
-    //   const token = signToken(foundUser);
-    //   // Respond with token
-    //   res.status(200).json({ token });
-    // }
     
     // Create a new user
     const newUser = new User({ 
@@ -112,13 +96,14 @@ module.exports = {
     res.json({ success: true });
   },
 
-  googleOAuth: async (req, res, next) => {
+  googleOAuth: async (req, res, next) => {   
     // Generate token
     const signed = signToken(req.user);
     res.cookie('access_token', signed.token, {
       httpOnly: true
     });
-    res.status(200).json({ success: true });
+    res.cookie('session_token', 'yes');
+    res.redirect(302, process.env.REDIRECT_URL);
   },
 
   linkGoogle: async (req, res, next) => {
@@ -202,7 +187,8 @@ module.exports = {
       _id: req.user._id,
       email: req.user.local.email,
       name: req.user.name,
-      restaurants: req.user.restaurants
+      restaurants: req.user.restaurants,
+      picture: req.user.picture
     }
     res.json({ success: true, user: userDetails });
   }

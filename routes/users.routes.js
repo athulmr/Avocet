@@ -18,13 +18,19 @@ router.route('/signout')
   .get(passportJWT, UsersController.signOut);
 
 router.route('/oauth/google')
-  .post(passport.authenticate('googleToken', { session: false }), UsersController.googleOAuth);
+  .post(passport.authenticate('google', { session: false, scope: 'profile' }), UsersController.googleOAuth);
+
+router.route('/oauth/google')
+  .get(passport.authenticate('google', {session: false,scope: ['profile', 'email']}));
+
+router.route('/oauth/google/callback')
+  .get(passport.authenticate('google', {session: false,scope: ['profile', 'email']}), UsersController.googleOAuth);
 
 router.route('/oauth/facebook')
   .post(passport.authenticate('facebookToken', { session: false }), UsersController.facebookOAuth);
 
 router.route('/oauth/link/google')
-  .post(passportJWT, passport.authorize('googleToken', { session: false }), UsersController.linkGoogle)
+  .post(passportJWT, passport.authorize('google', { session: false }), UsersController.linkGoogle)
 
 router.route('/oauth/unlink/google')
   .post(passportJWT, UsersController.unlinkGoogle);

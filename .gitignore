@@ -4,3 +4,5 @@ journals
 .vscode/settings.json
 .nyc_output
 *.sh
+config/index.js
+constants/version.js
