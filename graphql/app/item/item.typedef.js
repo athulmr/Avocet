@@ -30,6 +30,7 @@ input ItemQuery {
 }
 
 input ItemInput {
+    _id: ID
     category: ID!
     name: String!
     code: String!

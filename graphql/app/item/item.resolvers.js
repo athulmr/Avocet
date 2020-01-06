@@ -14,27 +14,48 @@ module.exports = {
             if (!args) {
                 throw new Error("Didn't receive any argument");
             }
-            const item = JSON.parse(JSON.stringify(args.itemInput));
+            const itemInput = JSON.parse(JSON.stringify(args.itemInput));
 
             // check if the menu id received is valid or not
-            const categoryId = item.category;
-            const category = await Category.findById(categoryId).catch(err => {
-                throw new Error("Category do not exist")
-            });
-
-            // save the item
-            item.restaurant = category.restaurant;
-            const savedItem = await Item.create(item)
-            .then(savedItem => {
-                console.log('item saved');
+            let savedItem = null;
+            
+            if (typeof itemInput._id === 'undefined') {
+                const categoryId = itemInput.category;
+                const category = await Category
+                .findById(categoryId)
+                .catch(err => {
+                    throw new Error("Category do not exist")
+                    });
                 
-                category.items.push(savedItem);
-                return category.save()
-                .then(()=>{
-                    console.log('item added to category', savedItem);
-                    return savedItem;
+                // save the item
+                itemInput.restaurant = category.restaurant;
+                savedItem = await Item.create(itemInput)
+                .then(savedItem => {
+
+                    category.items.push(savedItem);
+                    return category.save()
+                    .then(()=>{
+                        console.log('item added to category', savedItem);
+                        return savedItem;
+                    })
+                });
+            } 
+            else {
+                // If item ID already exist then search for that Item and update it.
+                return Item.findById(itemInput._id)
+                .then(item => {
+                    // Update only price, name and packaging charges
+                    item.price = itemInput.price;
+                    item.name = itemInput.name;
+                    item.pkgChrg = itemInput.pkgChrg;
+
+                    return item.save()
+                    .then(savedItem => {                            
+                        return savedItem;
+                    })
+
                 })
-            });
+            }
 
             return savedItem;
             
