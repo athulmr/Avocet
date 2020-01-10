@@ -20,13 +20,23 @@ input RestaurantInput {
     owner: ID
 }
 
+input RestaurantUpdateInput {
+    _id: ID!
+    name: String!
+    code: String!
+    address: String
+    phone: [String]
+    email: [String]
+    owners: [ID]
+}
+
 input RestaurantQuery {
     _id: ID
     name: String
     code: String
     address: String
-    phone: String
-    email: String
+    phone: [String]
+    email: [String]
     owners: [ID!]
 }
 
@@ -45,6 +55,7 @@ restaurants(restaurant: RestaurantQuery): RestaurantOutput!
 const mutation =`
 extend type RootMutation {
 createRestaurant(restaurantInput: RestaurantInput): RestaurantOutput
+updateRestaurant(restaurantInput: RestaurantUpdateInput): Restaurant
 }
 `;
 

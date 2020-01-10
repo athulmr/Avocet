@@ -54,6 +54,44 @@ module.exports = {
             throw err;
         }
     },
+    updateRestaurant: async (args, context) => {
+        try {
+            if (!args) throw new Error("Args are empty, check if you are passing 'variables' or not")
+            const restaurantInput = args.restaurantInput;            
+
+            restaurantInput.owner = context.user._id;            
+            
+            return User.findById(restaurantInput.owner)
+                .then(user => {
+                    if (!user) throw new Error('User not found');
+                    
+                 return Restaurant.findById(restaurantInput._id)
+                .then(restaurant => {
+                    restaurant.name = restaurantInput.name;
+                    restaurant.email = restaurantInput.email;
+                    restaurant.address = restaurantInput.address;
+                    restaurant.active = restaurantInput.active;
+                    restaurant.phone = restaurantInput.phone;
+                    return restaurant.save()
+                    .then(restaurant => {
+                        return restaurant;
+                    })
+                }).catch(err => {
+                    throw new Error(err);
+                });
+
+                })
+                .catch(err => {
+                    console.log("Owner do not Exist");
+                    return {
+                        error: err.message
+                    };
+                });
+
+        } catch (err) {
+            throw err;
+        }
+    },
     restaurants: async (args, context) => {
         try {
             // Context will hold all the request context

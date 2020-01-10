@@ -44,16 +44,22 @@ const restaurantSchema = Schema({
     },
     active: {
         type: Boolean
+    },
+    updatedAt: {
+        type: Date
     }
 });
 
 restaurantSchema.pre('save', async function (next) {
     try {
       // set addedOn date
-      this.addedOn = new Date();
-      this.active = true;
-      this.code = this.code.toUpperCase();
-
+      if (typeof this.addedOn === 'undefined') {
+          this.addedOn = new Date();
+          this.active = true;
+          this.code = this.code.toUpperCase();
+      } else {
+          this.updatedAt = new Date();
+      }
       next();
     } catch (error) {
       next(error);
